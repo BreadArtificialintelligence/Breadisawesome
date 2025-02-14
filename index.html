@@ -1,16 +1,16 @@
 <html>
 <head>
-    <title>Site Bread</title>
+    <title>Site Cheese</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0e68c;
+            background-color: #f7f1d7;
             margin: 0;
             padding: 20px;
         }
 
         h1 {
-            color: #7a5c3a;
+            color: #7d6b4c;
         }
 
         .container {
@@ -22,7 +22,7 @@
         }
 
         button {
-            background-color: #ffcc00;
+            background-color: #ffdb58;
             border: none;
             padding: 10px 20px;
             margin-top: 10px;
@@ -32,7 +32,7 @@
         }
 
         button:hover {
-            background-color: #e6b800;
+            background-color: #ffcc00;
         }
 
         .status {
@@ -51,65 +51,64 @@
             border-radius: 5px;
         }
 
-        .bread-image {
+        .cheese-image {
             width: 200px;
             margin-top: 20px;
         }
-
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Site Bread</h1>
-        <p>Click the buttons below to explore the site through delicious bread!</p>
-        <button id="expandBread">Get Bread Description</button>
-        <button id="addToFavorites">Add Bread to Favorites</button>
-        <button id="clearLog">Clear Log</button>
+        <h1>Welcome to Site Cheese</h1>
+        <p>Click the buttons below to explore the wonderful world of cheese!</p>
+        <button id="expandCheese">Get Cheese Description</button>
+        <button id="addToCheeseFavorites">Add Cheese to Favorites</button>
+        <button id="clearCheeseLog">Clear Log</button>
         <div id="status" class="status"></div>
         <div id="log"></div>
-        <img id="breadImage" class="bread-image" src="https://via.placeholder.com/200?text=Bread+Picture" alt="Bread Picture">
+        <img id="cheeseImage" class="cheese-image" src="https://via.placeholder.com/200?text=Cheese+Picture" alt="Cheese Picture">
     </div>
 
     <script>
-        const breadDescriptions = [
-            "Sourdough: A tangy bread made from a natural fermentation process.",
-            "Baguette: A long, narrow loaf known for its crispy crust.",
-            "Ciabatta: An Italian bread with an open crumb and chewy texture.",
-            "Focaccia: A flat oven-baked Italian bread, often topped with olive oil and herbs.",
-            "Rye Bread: A dense bread made from rye flour, with a distinct flavor.",
-            "Whole Wheat Bread: A healthier choice made from whole grain wheat.",
-            "Challah: A sweet, braided bread eaten during Jewish Sabbath.",
-            "Flatbread: A simple bread made with flour and water, often cooked on a hot surface.",
-            "Pita Bread: A Middle Eastern bread that puffs up when baked.",
-            "Bagel: A round bread with a hole in the center, often boiled before baking.",
-            "English Muffin: A small, round, flat bread often toasted and split.",
-            "Brioche: A sweet, soft bread enriched with butter and eggs.",
-            "Naan: A type of flatbread from India, often served with curries.",
-            "Pretzel: A baked bread product, typically twisted into a knot shape.",
-            "Zopf: A traditional Swiss bread, braided and often eaten on Sundays."
+        const cheeseDescriptions = [
+            "Cheddar: A rich, nutty cheese that is one of the most popular worldwide.",
+            "Brie: A soft cheese from France, known for its creamy texture and edible rind.",
+            "Gorgonzola: A flavored blue cheese that has a strong flavor and creamy texture.",
+            "Mozzarella: A soft, white cheese from Italy, often used on pizzas and salads.",
+            "Feta: A crumbly cheese from Greece, made from sheep's milk with a tangy flavor.",
+            "Swiss: A mild, semi-sweet cheese known for its holes or 'eyes'.",
+            "Parmesan: A hard, aged cheese that is often grated over pasta dishes.",
+            "Camembert: A soft, creamy cheese similar to Brie but with a stronger flavor.",
+            "Gouda: A Dutch cheese that is smooth and creamy, with a hint of sweetness.",
+            "Gruyère: A Swiss cheese that is great for melting and has a nutty flavor.",
+            "Ricotta: An Italian cheese that is soft and creamy, often used in desserts.",
+            "Halloumi: A Cypriot cheese that doesn't melt and is great for grilling.",
+            "Boursin: A soft garlic and herb cheese that's creamy and spreadable.",
+            "Cotija: A crumbly Mexican cheese that's often sprinkled on tacos and salads.",
+            "Provolone: An Italian cheese that is semi-hard and has a sharp flavor."
         ];
 
-        document.getElementById('expandBread').onclick = function() {
+        document.getElementById('expandCheese').onclick = function() {
             const statusDiv = document.getElementById('status');
             const logDiv = document.getElementById('log');
 
-            const randomIndex = Math.floor(Math.random() * breadDescriptions.length);
-            const description = breadDescriptions[randomIndex];
+            const randomIndex = Math.floor(Math.random() * cheeseDescriptions.length);
+            const description = cheeseDescriptions[randomIndex];
 
             statusDiv.innerText = description;
-            logDiv.innerHTML += "Displayed bread description: " + description + "<br>";
+            logDiv.innerHTML += "Displayed cheese description: " + description + "<br>";
         };
 
-        document.getElementById('addToFavorites').onclick = function() {
+        document.getElementById('addToCheeseFavorites').onclick = function() {
             const statusDiv = document.getElementById('status');
             const logDiv = document.getElementById('log');
 
-            const favoriteBread = "Your favorite bread has been added!";
-            statusDiv.innerText = favoriteBread;
-            logDiv.innerHTML += favoriteBread + "<br>";
+            const favoriteCheese = "Your favorite cheese has been added!";
+            statusDiv.innerText = favoriteCheese;
+            logDiv.innerHTML += favoriteCheese + "<br>";
         };
 
-        document.getElementById('clearLog').onclick = function() {
+        document.getElementById('clearCheeseLog').onclick = function() {
             const logDiv = document.getElementById('log');
             logDiv.innerHTML = "";
             const statusDiv = document.getElementById('status');
