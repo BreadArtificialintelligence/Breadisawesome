@@ -1,0 +1,109 @@
+<html>
+<head>
+    <title>Site Bread</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0e68c;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #7a5c3a;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        button {
+            background-color: #ffcc00;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e6b800;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        #log {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+            height: 100px;
+            overflow-y: scroll;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .bread-image {
+            width: 200px;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Site Bread</h1>
+        <p>Click the buttons below to explore the site through delicious bread!</p>
+        <button id="expandBread">Get Bread Description</button>
+        <button id="addToFavorites">Add Bread to Favorites</button>
+        <button id="clearLog">Clear Log</button>
+        <div id="status" class="status"></div>
+        <div id="log"></div>
+        <img id="breadImage" class="bread-image" src="https://via.placeholder.com/200?text=Bread+Picture" alt="Bread Picture">
+    </div>
+
+    <script>
+        const breadDescriptions = [
+            "Sourdough: A tangy bread made from a natural fermentation process.",
+            "Baguette: A long, narrow loaf known for its crispy crust.",
+            "Ciabatta: An Italian bread with an open crumb and chewy texture.",
+            "Focaccia: A flat oven-baked Italian bread, often topped with olive oil and herbs."
+        ];
+
+        document.getElementById('expandBread').onclick = function() {
+            const statusDiv = document.getElementById('status');
+            const logDiv = document.getElementById('log');
+
+            const randomIndex = Math.floor(Math.random() * breadDescriptions.length);
+            const description = breadDescriptions[randomIndex];
+
+            statusDiv.innerText = description;
+            logDiv.innerHTML += "Displayed bread description: " + description + "<br>";
+        };
+
+        document.getElementById('addToFavorites').onclick = function() {
+            const statusDiv = document.getElementById('status');
+            const logDiv = document.getElementById('log');
+
+            const favoriteBread = "Your favorite bread has been added!";
+            statusDiv.innerText = favoriteBread;
+            logDiv.innerHTML += favoriteBread + "<br>";
+        };
+
+        document.getElementById('clearLog').onclick = function() {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML = "";
+            const statusDiv = document.getElementById('status');
+            statusDiv.innerText = "Log cleared.";
+        };
+    </script>
+</body>
+</html>
