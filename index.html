@@ -1,31 +1,47 @@
 <html>
 <head>
-    <title>Site Cheese</title>
+    <title>My Personal Blog</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f1d7;
+            background-color: #eef2f3;
             margin: 0;
             padding: 20px;
             transition: background-color 0.5s;
         }
 
         h1 {
-            color: #7d6b4c;
-            animation: fadeIn 1s;
+            color: #333;
         }
 
         .container {
+            max-width: 800px;
+            margin: auto;
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            animation: slideIn 0.5s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .post {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+
+        .post-title {
+            font-size: 24px;
+            color: #007bff;
+            cursor: pointer;
+        }
+
+        .post-content {
+            display: none;
+            color: #555;
         }
 
         button {
-            background-color: #ffdb58;
+            background-color: #007bff;
+            color: white;
             border: none;
             padding: 10px 20px;
             margin-top: 10px;
@@ -35,147 +51,71 @@
         }
 
         button:hover {
-            background-color: #ffcc00;
+            background-color: #0056b3;
             transform: scale(1.1);
         }
 
-        .status {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #d35400;
-            animation: fadeIn 0.5s;
-        }
-
-        #log {
-            border: 1px solid #ccc;
-            padding: 10px;
+        #newPostTitle, #newPostContent {
+            width: 100%;
             margin-top: 10px;
-            height: 100px;
-            overflow-y: scroll;
-            background-color: #f9f9f9;
+            padding: 10px;
             border-radius: 5px;
-            animation: fadeIn 0.5s;
+            border: 1px solid #ccc;
         }
 
-        .cheese-image {
-            width: 200px;
-            margin-top: 20px;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-20px); }
-            60% { transform: translateY(-10px); }
-        }
-
-        #styleToggle {
-            margin-top: 20px;
+        #addPostButton {
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to Site Cheese</h1>
-        <p>Click the buttons below to explore the wonderful world of cheese!</p>
-        <button id="expandCheese">Get Cheese Description</button>
-        <button id="addToCheeseFavorites">Add Cheese to Favorites</button>
-        <button id="clearCheeseLog">Clear Log</button>
-        <button id="randomColor">Change Background Color</button>
-        <button id="styleToggle">Toggle Style</button>
-        <div id="status" class="status"></div>
-        <div id="log"></div>
-        <img id="cheeseImage" class="cheese-image" src="https://via.placeholder.com/200?text=Cheese+Picture" alt="Cheese Picture">
+        <h1>My Personal Blog</h1>
+        <div id="posts"></div>
+        <h2>Add a New Post</h2>
+        <input type="text" id="newPostTitle" placeholder="Post Title" />
+        <textarea id="newPostContent" rows="4" placeholder="Post Content"></textarea>
+        <button id="addPostButton">Add Post</button>
     </div>
 
     <script>
-        const cheeseDescriptions = [
-            "Cheddar: A rich, nutty cheese that is one of the most popular worldwide.",
-            "Brie: A soft cheese from France, known for its creamy texture and edible rind.",
-            "Gorgonzola: A flavored blue cheese that has a strong flavor and creamy texture.",
-            "Mozzarella: A soft, white cheese from Italy, often used on pizzas and salads.",
-            "Feta: A crumbly cheese from Greece, made from sheep's milk with a tangy flavor.",
-            "Swiss: A mild, semi-sweet cheese known for its holes or 'eyes'.",
-            "Parmesan: A hard, aged cheese that is often grated over pasta dishes.",
-            "Camembert: A soft, creamy cheese similar to Brie but with a stronger flavor.",
-            "Gouda: A Dutch cheese that is smooth and creamy, with a hint of sweetness.",
-            "Gruyère: A Swiss cheese that is great for melting and has a nutty flavor.",
-            "Ricotta: An Italian cheese that is soft and creamy, often used in desserts.",
-            "Halloumi: A Cypriot cheese that doesn't melt and is great for grilling.",
-            "Boursin: A soft garlic and herb cheese that's creamy and spreadable.",
-            "Cotija: A crumbly Mexican cheese that's often sprinkled on tacos and salads.",
-            "Provolone: An Italian cheese that is semi-hard and has a sharp flavor."
-        ];
+        const posts = [];
 
-        let styles = ["normal", "fancy"];
-        let currentStyle = 0;
-
-        document.getElementById('expandCheese').onclick = function() {
-            updateLog("Displayed cheese description: " + getRandomCheeseDescription());
-        };
-
-        document.getElementById('addToCheeseFavorites').onclick = function() {
-            updateLog("Your favorite cheese has been added!");
-        };
-
-        document.getElementById('clearCheeseLog').onclick = function() {
-            clearLog();
-        };
-
-        document.getElementById('randomColor').onclick = function() {
-            document.body.style.backgroundColor = getRandomColor();
-        };
-
-        document.getElementById('styleToggle').onclick = function() {
-            currentStyle = (currentStyle + 1) % styles.length;
-            toggleStyle(currentStyle);
-        };
-
-        function getRandomCheeseDescription() {
-            const randomIndex = Math.floor(Math.random() * cheeseDescriptions.length);
-            const description = cheeseDescriptions[randomIndex];
-            document.getElementById('status').innerText = description;
-            return description;
-        }
-
-        function updateLog(message) {
-            const logDiv = document.getElementById('log');
-            logDiv.innerHTML += message + "<br>";
-        }
-
-        function clearLog() {
-            document.getElementById('log').innerHTML = "";
-            document.getElementById('status').innerText = "Log cleared.";
-        }
-
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
+        document.getElementById('addPostButton').onclick = function() {
+            const title = document.getElementById('newPostTitle').value;
+            const content = document.getElementById('newPostContent').value;
+            if (title && content) {
+                const post = { title, content };
+                posts.push(post);
+                document.getElementById('newPostTitle').value = '';
+                document.getElementById('newPostContent').value = '';
+                renderPosts();
             }
-            return color;
-        }
+        };
 
-        function toggleStyle(style) {
-            const container = document.querySelector(".container");
-            if (style === 1) {
-                container.style.backgroundColor = "#e74c3c";
-                container.style.color = "white";
-            } else {
-                container.style.backgroundColor = "white";
-                container.style.color = "black";
-            }
+        function renderPosts() {
+            const postsContainer = document.getElementById('posts');
+            postsContainer.innerHTML = '';
+            posts.forEach((post, index) => {
+                const postDiv = document.createElement('div');
+                postDiv.classList.add('post');
+
+                const postTitle = document.createElement('div');
+                postTitle.classList.add('post-title');
+                postTitle.innerText = post.title;
+                postTitle.onclick = () => {
+                    const postContent = postDiv.querySelector('.post-content');
+                    postContent.style.display = postContent.style.display === 'none' ? 'block' : 'none';
+                };
+
+                const postContent = document.createElement('div');
+                postContent.classList.add('post-content');
+                postContent.innerText = post.content;
+
+                postDiv.appendChild(postTitle);
+                postDiv.appendChild(postContent);
+                postsContainer.appendChild(postDiv);
+            });
         }
     </script>
 </body>
