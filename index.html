@@ -7,6 +7,7 @@
             background-color: #f7f1d7;
             margin: 0;
             padding: 20px;
+            transition: background-color 0.5s;
         }
 
         h1 {
@@ -55,6 +56,10 @@
             width: 200px;
             margin-top: 20px;
         }
+
+        #styleToggle {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -64,6 +69,8 @@
         <button id="expandCheese">Get Cheese Description</button>
         <button id="addToCheeseFavorites">Add Cheese to Favorites</button>
         <button id="clearCheeseLog">Clear Log</button>
+        <button id="randomColor">Change Background Color</button>
+        <button id="styleToggle">Toggle Style</button>
         <div id="status" class="status"></div>
         <div id="log"></div>
         <img id="cheeseImage" class="cheese-image" src="https://via.placeholder.com/200?text=Cheese+Picture" alt="Cheese Picture">
@@ -88,32 +95,66 @@
             "Provolone: An Italian cheese that is semi-hard and has a sharp flavor."
         ];
 
+        let styles = ["normal", "fancy"];
+        let currentStyle = 0;
+
         document.getElementById('expandCheese').onclick = function() {
-            const statusDiv = document.getElementById('status');
-            const logDiv = document.getElementById('log');
-
-            const randomIndex = Math.floor(Math.random() * cheeseDescriptions.length);
-            const description = cheeseDescriptions[randomIndex];
-
-            statusDiv.innerText = description;
-            logDiv.innerHTML += "Displayed cheese description: " + description + "<br>";
+            updateLog("Displayed cheese description: " + getRandomCheeseDescription());
         };
 
         document.getElementById('addToCheeseFavorites').onclick = function() {
-            const statusDiv = document.getElementById('status');
-            const logDiv = document.getElementById('log');
-
-            const favoriteCheese = "Your favorite cheese has been added!";
-            statusDiv.innerText = favoriteCheese;
-            logDiv.innerHTML += favoriteCheese + "<br>";
+            updateLog("Your favorite cheese has been added!");
         };
 
         document.getElementById('clearCheeseLog').onclick = function() {
-            const logDiv = document.getElementById('log');
-            logDiv.innerHTML = "";
-            const statusDiv = document.getElementById('status');
-            statusDiv.innerText = "Log cleared.";
+            clearLog();
         };
+
+        document.getElementById('randomColor').onclick = function() {
+            document.body.style.backgroundColor = getRandomColor();
+        };
+
+        document.getElementById('styleToggle').onclick = function() {
+            currentStyle = (currentStyle + 1) % styles.length;
+            toggleStyle(currentStyle);
+        };
+
+        function getRandomCheeseDescription() {
+            const randomIndex = Math.floor(Math.random() * cheeseDescriptions.length);
+            const description = cheeseDescriptions[randomIndex];
+            document.getElementById('status').innerText = description;
+            return description;
+        }
+
+        function updateLog(message) {
+            const logDiv = document.getElementById('log');
+            logDiv.innerHTML += message + "<br>";
+        }
+
+        function clearLog() {
+            document.getElementById('log').innerHTML = "";
+            document.getElementById('status').innerText = "Log cleared.";
+        }
+
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        function toggleStyle(style) {
+            const container = document.querySelector(".container");
+            if (style === 1) {
+                container.style.backgroundColor = "#e74c3c";
+                container.style.color = "white";
+            } else {
+                container.style.backgroundColor = "white";
+                container.style.color = "black";
+            }
+        }
     </script>
 </body>
 </html>
