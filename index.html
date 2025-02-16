@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Wi-Fi Connection Tester</title>
+    <title>My Portfolio</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -15,12 +15,24 @@
         }
 
         .container {
-            max-width: 600px;
+            max-width: 800px;
             margin: auto;
             padding: 30px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .project {
+            margin: 20px 0;
+            background: #e9ecef;
+            border-radius: 5px;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .project h2 {
+            margin: 0;
         }
 
         button {
@@ -38,15 +50,6 @@
             background-color: #0056b3;
         }
 
-        .result {
-            margin-top: 20px;
-            display: none;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fafafa;
-        }
-
         .updateContent {
             margin-top: 30px;
             padding: 10px;
@@ -59,43 +62,67 @@
         .updateButton:hover {
             background-color: #218838;
         }
+
+        .result {
+            margin-top: 20px;
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Wi-Fi Connection Tester</h1>
-        <button id="testConnectionButton">Test Wi-Fi Connection</button>
-        <div id="result" class="result"></div>
+        <h1>My Portfolio</h1>
+        <div class="projects">
+            <div class="project" id="project1">
+                <h2>Project 1: Awesome Website</h2>
+                <p>A cool website built using HTML, CSS, and JavaScript.</p>
+                <button onclick="showMore('project1Details')">Show More</button>
+                <div class="result" id="project1Details">Technologies used: HTML, CSS, JavaScript. Check it out now!</div>
+            </div>
+
+            <div class="project" id="project2">
+                <h2>Project 2: Mobile App</h2>
+                <p>An innovative mobile app developed for enhancing productivity.</p>
+                <button onclick="showMore('project2Details')">Show More</button>
+                <div class="result" id="project2Details">Technologies used: React Native, Firebase. Available on Google Play and App Store!</div>
+            </div>
+
+            <div class="project" id="project3">
+                <h2>Project 3: Game Development</h2>
+                <p>A fun and engaging game developed for all age groups.</p>
+                <button onclick="showMore('project3Details')">Show More</button>
+                <div class="result" id="project3Details">Technologies used: Unity, C#. Play it now!</div>
+            </div>
+        </div>
 
         <div class="updateContent">
-            <h2>Update Website Content</h2>
-            <input type="text" id="newContent" placeholder="Enter new content" />
-            <button class="updateButton" id="updateButton">Update Content</button>
+            <h2>Update Portfolio</h2>
+            <input type="text" id="newProject" placeholder="Enter new project description" />
+            <button class="updateButton" id="updateButton">Add Project</button>
             <p id="contentDisplay"></p>
         </div>
     </div>
 
     <script>
-        document.getElementById('testConnectionButton').onclick = function() {
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'none';
-            resultDiv.innerText = 'Testing your Wi-Fi connection...';
-            resultDiv.style.display = 'block';
-
-            setTimeout(() => {
-                const isSuccess = Math.random() < 0.8;
-                resultDiv.innerText = isSuccess ? 'Wi-Fi Connection is Strong!' : 'Wi-Fi Connection is Weak! Please check your connection.';
-            }, 2000);
-        };
+        function showMore(projectDetailsId) {
+            const detailsDiv = document.getElementById(projectDetailsId);
+            detailsDiv.style.display = detailsDiv.style.display === 'block' ? 'none' : 'block';
+        }
 
         document.getElementById('updateButton').onclick = function() {
-            const newContent = document.getElementById('newContent').value;
+            const newProject = document.getElementById('newProject').value;
             const contentDisplay = document.getElementById('contentDisplay');
 
-            if (newContent) {
-                contentDisplay.innerText = newContent;
-                contentDisplay.style.display = 'block';
-                document.getElementById('newContent').value = '';
+            if (newProject) {
+                const newDiv = document.createElement('div');
+                newDiv.className = 'project';
+                newDiv.innerHTML = `<h2>New Project</h2><p>${newProject}</p><button onclick="showMore('newProjectDetails')">Show More</button><div class="result" id="newProjectDetails">Details about the new project.</div>`;
+                document.querySelector('.projects').appendChild(newDiv);
+                document.getElementById('newProject').value = '';
             }
         };
     </script>
