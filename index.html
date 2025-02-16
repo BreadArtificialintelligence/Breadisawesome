@@ -1,17 +1,17 @@
 <html>
 <head>
-    <title>My Fun Facts and Quotes Site</title>
+    <title>Gaming Hub</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #eef2f3;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
-            transition: background-color 0.5s;
         }
 
         h1 {
             color: #333;
+            text-align: center;
         }
 
         .container {
@@ -23,20 +23,22 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .fact, .quote {
-            border-bottom: 1px solid #ddd;
-            padding: 10px 0;
+        .section {
+            margin-bottom: 20px;
         }
 
-        .fact-title, .quote-title {
-            font-size: 20px;
-            color: #007bff;
+        .review-title, .news-title, .forum-title {
             cursor: pointer;
+            color: #007bff;
+            margin: 10px 0;
         }
 
-        .fact-content, .quote-content {
+        .content {
             display: none;
-            color: #555;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #fafafa;
         }
 
         button {
@@ -47,103 +49,130 @@
             margin-top: 10px;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
         }
 
         button:hover {
             background-color: #0056b3;
-            transform: scale(1.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Random Fun Facts and Quotes</h1>
-        <div id="factsSection">
-            <h2>Fun Facts</h2>
-            <button id="addFactButton">Add a Fun Fact</button>
-            <div id="facts"></div>
-            <input type="text" id="newFact" placeholder="Enter a fun fact" style="width: 100%; padding: 10px; margin-top: 10px;" />
+        <h1>Gaming Hub</h1>
+
+        <div class="section" id="reviewsSection">
+            <h2>Game Reviews</h2>
+            <div id="reviews"></div>
+            <input type="text" id="newReview" placeholder="Enter a game review" style="width: 100%; padding: 10px; margin-top: 10px;" />
+            <button id="addReviewButton">Add Review</button>
         </div>
 
-        <div id="quotesSection">
-            <h2>Quotes</h2>
-            <button id="addQuoteButton">Add a Quote</button>
-            <div id="quotes"></div>
-            <input type="text" id="newQuote" placeholder="Enter a quote" style="width: 100%; padding: 10px; margin-top: 10px;" />
+        <div class="section" id="newsSection">
+            <h2>Latest News</h2>
+            <div id="news"></div>
+            <input type="text" id="newNews" placeholder="Enter news" style="width: 100%; padding: 10px; margin-top: 10px;" />
+            <button id="addNewsButton">Add News</button>
+        </div>
+
+        <div class="section" id="forumSection">
+            <h2>Discussion Forum</h2>
+            <div id="forum"></div>
+            <textarea id="newForumPost" placeholder="Enter your forum post"></textarea>
+            <button id="addForumPostButton">Post</button>
         </div>
     </div>
 
     <script>
-        const facts = [];
-        const quotes = [];
+        const reviews = [];
+        const news = [];
+        const forumPosts = [];
 
-        document.getElementById('addFactButton').onclick = function() {
-            const newFact = document.getElementById('newFact').value;
-            if (newFact) {
-                facts.push(newFact);
-                document.getElementById('newFact').value = '';
-                renderFacts();
+        document.getElementById('addReviewButton').onclick = function() {
+            const newReview = document.getElementById('newReview').value;
+            if (newReview) {
+                reviews.push(newReview);
+                document.getElementById('newReview').value = '';
+                renderReviews();
             }
         };
 
-        document.getElementById('addQuoteButton').onclick = function() {
-            const newQuote = document.getElementById('newQuote').value;
-            if (newQuote) {
-                quotes.push(newQuote);
-                document.getElementById('newQuote').value = '';
-                renderQuotes();
+        document.getElementById('addNewsButton').onclick = function() {
+            const newNews = document.getElementById('newNews').value;
+            if (newNews) {
+                news.push(newNews);
+                document.getElementById('newNews').value = '';
+                renderNews();
             }
         };
 
-        function renderFacts() {
-            const factsContainer = document.getElementById('facts');
-            factsContainer.innerHTML = '';
-            facts.forEach((fact, index) => {
-                const factDiv = document.createElement('div');
-                factDiv.classList.add('fact');
+        document.getElementById('addForumPostButton').onclick = function() {
+            const newForumPost = document.getElementById('newForumPost').value;
+            if (newForumPost) {
+                forumPosts.push(newForumPost);
+                document.getElementById('newForumPost').value = '';
+                renderForumPosts();
+            }
+        };
 
-                const factTitle = document.createElement('div');
-                factTitle.classList.add('fact-title');
-                factTitle.innerText = `Fun Fact ${index + 1}`;
-                factTitle.onclick = () => {
-                    const factContent = factDiv.querySelector('.fact-content');
-                    factContent.style.display = factContent.style.display === 'none' ? 'block' : 'none';
-                };
-
-                const factContent = document.createElement('div');
-                factContent.classList.add('fact-content');
-                factContent.innerText = fact;
-
-                factDiv.appendChild(factTitle);
-                factDiv.appendChild(factContent);
-                factsContainer.appendChild(factDiv);
+        function renderReviews() {
+            const reviewsContainer = document.getElementById('reviews');
+            reviewsContainer.innerHTML = '';
+            reviews.forEach((review, index) => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.classList.add('review-title');
+                reviewDiv.innerText = `Review ${index + 1}`;
+                reviewDiv.onclick = () => toggleContent(reviewDiv);
+                const contentDiv = createContentDiv(review);
+                reviewsContainer.appendChild(reviewDiv);
+                reviewsContainer.appendChild(contentDiv);
             });
         }
 
-        function renderQuotes() {
-            const quotesContainer = document.getElementById('quotes');
-            quotesContainer.innerHTML = '';
-            quotes.forEach((quote, index) => {
-                const quoteDiv = document.createElement('div');
-                quoteDiv.classList.add('quote');
-
-                const quoteTitle = document.createElement('div');
-                quoteTitle.classList.add('quote-title');
-                quoteTitle.innerText = `Quote ${index + 1}`;
-                quoteTitle.onclick = () => {
-                    const quoteContent = quoteDiv.querySelector('.quote-content');
-                    quoteContent.style.display = quoteContent.style.display === 'none' ? 'block' : 'none';
-                };
-
-                const quoteContent = document.createElement('div');
-                quoteContent.classList.add('quote-content');
-                quoteContent.innerText = quote;
-
-                quoteDiv.appendChild(quoteTitle);
-                quoteDiv.appendChild(quoteContent);
-                quotesContainer.appendChild(quoteDiv);
+        function renderNews() {
+            const newsContainer = document.getElementById('news');
+            newsContainer.innerHTML = '';
+            news.forEach((newsItem, index) => {
+                const newsDiv = document.createElement('div');
+                newsDiv.classList.add('news-title');
+                newsDiv.innerText = `News ${index + 1}`;
+                newsDiv.onclick = () => toggleContent(newsDiv);
+                const contentDiv = createContentDiv(newsItem);
+                newsContainer.appendChild(newsDiv);
+                newsContainer.appendChild(contentDiv);
             });
+        }
+
+        function renderForumPosts() {
+            const forumContainer = document.getElementById('forum');
+            forumContainer.innerHTML = '';
+            forumPosts.forEach((post, index) => {
+                const postDiv = document.createElement('div');
+                postDiv.classList.add('forum-title');
+                postDiv.innerText = `Post ${index + 1}`;
+                postDiv.onclick = () => toggleContent(postDiv);
+                const contentDiv = createContentDiv(post);
+                forumContainer.appendChild(postDiv);
+                forumContainer.appendChild(contentDiv);
+            });
+        }
+
+        function createContentDiv(content) {
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'content';
+            contentDiv.innerText = content;
+            return contentDiv;
+        }
+
+        function toggleContent(titleDiv) {
+            const contentDiv = titleDiv.nextElementSibling;
+            contentDiv.style.display = contentDiv.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>
