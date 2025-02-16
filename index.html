@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>My Portfolio</title>
+    <title>My Portfolio with Useful Tool</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -29,10 +29,6 @@
             border-radius: 5px;
             padding: 15px;
             text-align: left;
-        }
-
-        .project h2 {
-            margin: 0;
         }
 
         button {
@@ -71,6 +67,26 @@
             border-radius: 5px;
             background-color: #fafafa;
         }
+
+        .tool-container {
+            margin-top: 50px;
+            padding: 20px;
+            background: #e9ecef;
+            border-radius: 5px;
+        }
+
+        #calculator {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        #calculator input {
+            width: 60px;
+            margin: 0 5px;
+            padding: 5px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -105,6 +121,22 @@
             <button class="updateButton" id="updateButton">Add Project</button>
             <p id="contentDisplay"></p>
         </div>
+
+        <div class="tool-container">
+            <h2>Simple Calculator</h2>
+            <div id="calculator">
+                <input type="number" id="num1" placeholder="0" />
+                <select id="operator">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="*">*</option>
+                    <option value="/">/</option>
+                </select>
+                <input type="number" id="num2" placeholder="0" />
+                <button id="calculateButton">Calculate</button>
+            </div>
+            <div id="calcResult" class="result"></div>
+        </div>
     </div>
 
     <script>
@@ -124,6 +156,33 @@
                 document.querySelector('.projects').appendChild(newDiv);
                 document.getElementById('newProject').value = '';
             }
+        };
+
+        document.getElementById('calculateButton').onclick = function() {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            const operator = document.getElementById('operator').value;
+            let result;
+
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero';
+                    break;
+                default:
+                    result = 'Invalid operation';
+            }
+
+            document.getElementById('calcResult').style.display = 'block';
+            document.getElementById('calcResult').innerHTML = `Result: ${result}`;
         };
     </script>
 </body>
