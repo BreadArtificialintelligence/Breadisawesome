@@ -46,6 +46,19 @@
             border-radius: 5px;
             background-color: #fafafa;
         }
+
+        .updateContent {
+            margin-top: 30px;
+            padding: 10px;
+        }
+
+        .updateButton {
+            background-color: #28a745;
+        }
+
+        .updateButton:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -53,6 +66,13 @@
         <h1>Wi-Fi Connection Tester</h1>
         <button id="testConnectionButton">Test Wi-Fi Connection</button>
         <div id="result" class="result"></div>
+
+        <div class="updateContent">
+            <h2>Update Website Content</h2>
+            <input type="text" id="newContent" placeholder="Enter new content" />
+            <button class="updateButton" id="updateButton">Update Content</button>
+            <p id="contentDisplay"></p>
+        </div>
     </div>
 
     <script>
@@ -62,11 +82,21 @@
             resultDiv.innerText = 'Testing your Wi-Fi connection...';
             resultDiv.style.display = 'block';
 
-            // Simulate a connection test
             setTimeout(() => {
-                const isSuccess = Math.random() < 0.8; // 80% chance of success
+                const isSuccess = Math.random() < 0.8;
                 resultDiv.innerText = isSuccess ? 'Wi-Fi Connection is Strong!' : 'Wi-Fi Connection is Weak! Please check your connection.';
             }, 2000);
+        };
+
+        document.getElementById('updateButton').onclick = function() {
+            const newContent = document.getElementById('newContent').value;
+            const contentDisplay = document.getElementById('contentDisplay');
+
+            if (newContent) {
+                contentDisplay.innerText = newContent;
+                contentDisplay.style.display = 'block';
+                document.getElementById('newContent').value = '';
+            }
         };
     </script>
 </body>
