@@ -4,7 +4,7 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f7f3e7;
+            background-color: #f2e3d4;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -12,15 +12,17 @@
         }
 
         h1 {
-            color: #6b4226;
-            font-size: 3em;
+            color: #5a3e28;
+            font-size: 3.5em;
             margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
-            color: #8d6e63;
+            color: #7e5c49;
             font-size: 2.5em;
             margin: 20px 0;
+            font-style: italic;
         }
 
         .container {
@@ -28,10 +30,10 @@
             margin: auto;
             padding: 30px;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
             opacity: 0;
-            transform: translateY(-30px);
+            transform: translateY(-50px);
             animation: slideIn 0.5s forwards 0.5s;
         }
 
@@ -43,38 +45,48 @@
         }
 
         .image-container svg {
-            width: 300px;
+            width: 250px;
             height: auto;
             margin: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s;
         }
 
         .image-container svg:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .bread-description {
             text-align: left;
             margin: 20px 0;
-            font-size: 1.2em;
-            color: #544b3d;
+            font-size: 1.3em;
+            color: #4e3b30;
         }
 
         button {
-            background-color: #6b4226;
+            background-color: #5a3e28;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 18px;
         }
 
         button:hover {
-            background-color: #5c3e2e;
+            background-color: #4b3224;
+            transform: translateY(-2px);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #5a3e28;
+            border: 2px solid #5a3e28;
+            border-radius: 5px;
+            padding: 10px;
+            display: none;
+            transition: all 0.3s;
         }
 
         @keyframes fadeIn {
@@ -83,7 +95,7 @@
         }
 
         @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-50px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -95,19 +107,19 @@
         <h2>Celebrating Bread in All Its Forms</h2>
 
         <div class="image-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#6b4226"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#8d6e63"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#6b4226"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#8d6e63"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#6b4226"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#8d6e63"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#6b4226"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#8d6e63"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#8D6E63"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#6B4226"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#8D6E63"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#6B4226"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#8D6E63"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#6B4226"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><path d="M32 2c-1.135 0-2.558.23-3.548.696C27.136 2.252 29.237 2 32 2c11.046 0 20 8.954 20 20 0 .456-.017.911-.052 1.36-1.816-.354-3.69-.36-4.671-.004C45.017 25.673 39.622 32 32 32c-7.576 0-12.654-3.38-16.537-8.016C13.464 25.942 8 32 4 32h9c0 3.778 6.706 7 16 7 11.046 0 20-8.954 20-20S43.046 2 32 2z" fill="#8D6E63"/><path d="M32 2a8.012 8.012 0 00-7.771 6.21A20.001 20.001 0 014 22V4h9C14.283 10.663 24 22 32 22c10.742 0 16-4.844 16-9V2h-16z" fill="#6B4226"/></svg>
         </div>
 
         <div class="bread-description">
-            <p>Bread has been a beloved staple in many cultures for centuries. Each type of bread has its own unique texture, flavor, and history. From the crispy crust of a baguette to the fluffy interior of a sourdough, every loaf tells a story of love and tradition.</p>
+            <p>Bread has been a beloved staple in many cultures for centuries. Each type of bread has its own unique texture, flavor, and history. From the crispy crust of a baguette to the fluffy interior of sourdough, every loaf tells a story of love and tradition.</p>
             <p>Join us as we explore the different types of bread, their health benefits, and their wonderful roles in culinary traditions around the world.</p>
         </div>
 
         <button onclick="changeImage()">Click for a Fun Bread Fact!</button>
-        <div class="result" id="breadFact" style="display:none; margin-top: 20px; font-size: 1.2em; color: #6b4226;"></div>
+        <div class="result" id="breadFact"></div>
     </div>
 
     <script>
@@ -124,6 +136,25 @@
             const factDisplay = document.getElementById('breadFact');
             factDisplay.style.display = 'block';
             factDisplay.innerHTML = randomFact;
+            saveFact(randomFact);
+        }
+
+        function saveFact(fact) {
+            document.cookie = "lastFact=" + encodeURIComponent(fact) + "; path=/; max-age=" + 60 * 60 * 24;
+        }
+
+        window.onload = function() {
+            const lastFact = getCookie("lastFact");
+            if (lastFact) {
+                document.getElementById('breadFact').innerHTML = lastFact;
+                document.getElementById('breadFact').style.display = 'block';
+            }
+        }
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
         }
     </script>
 </body>
