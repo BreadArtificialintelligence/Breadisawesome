@@ -1,38 +1,69 @@
 <html>
 <head>
-    <title>My Portfolio with Useful Tool</title>
+    <title>Bread Lovers Paradise</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f7f3e7;
             margin: 0;
             padding: 20px;
             text-align: center;
+            animation: fadeIn 1s;
         }
 
         h1 {
-            color: #333;
+            color: #6b4226;
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #8d6e63;
+            font-size: 2.5em;
+            margin: 20px 0;
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: auto;
             padding: 30px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: slideIn 0.5s forwards 0.5s;
         }
 
-        .project {
+        .image-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
             margin: 20px 0;
-            background: #e9ecef;
-            border-radius: 5px;
-            padding: 15px;
+        }
+
+        .image-container img {
+            width: 300px;
+            height: auto;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        .bread-description {
             text-align: left;
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #544b3d;
         }
 
         button {
-            background-color: #007bff;
+            background-color: #6b4226;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -43,147 +74,57 @@
         }
 
         button:hover {
-            background-color: #0056b3;
+            background-color: #5c3e2e;
         }
 
-        .updateContent {
-            margin-top: 30px;
-            padding: 10px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
-        .updateButton {
-            background-color: #28a745;
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .updateButton:hover {
-            background-color: #218838;
-        }
-
-        .result {
-            margin-top: 20px;
-            display: none;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #fafafa;
-        }
-
-        .tool-container {
-            margin-top: 50px;
-            padding: 20px;
-            background: #e9ecef;
-            border-radius: 5px;
-        }
-
-        #calculator {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        #calculator input {
-            width: 60px;
-            margin: 0 5px;
-            padding: 5px;
-            font-size: 16px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>My Portfolio</h1>
-        <div class="projects">
-            <div class="project" id="project1">
-                <h2>Project 1: Awesome Website</h2>
-                <p>A cool website built using HTML, CSS, and JavaScript.</p>
-                <button onclick="showMore('project1Details')">Show More</button>
-                <div class="result" id="project1Details">Technologies used: HTML, CSS, JavaScript. Check it out now!</div>
-            </div>
+        <h1>Welcome to the Bread Lovers Paradise</h1>
+        <h2>Celebrating Bread in All Its Forms</h2>
 
-            <div class="project" id="project2">
-                <h2>Project 2: Mobile App</h2>
-                <p>An innovative mobile app developed for enhancing productivity.</p>
-                <button onclick="showMore('project2Details')">Show More</button>
-                <div class="result" id="project2Details">Technologies used: React Native, Firebase. Available on Google Play and App Store!</div>
-            </div>
-
-            <div class="project" id="project3">
-                <h2>Project 3: Game Development</h2>
-                <p>A fun and engaging game developed for all age groups.</p>
-                <button onclick="showMore('project3Details')">Show More</button>
-                <div class="result" id="project3Details">Technologies used: Unity, C#. Play it now!</div>
-            </div>
+        <div class="image-container">
+            <img src="https://via.placeholder.com/300x200.png?text=Sourdough+Bread" alt="Sourdough Bread">
+            <img src="https://via.placeholder.com/300x200.png?text=Baguette" alt="Baguette">
+            <img src="https://via.placeholder.com/300x200.png?text=Whole+Wheat" alt="Whole Wheat Bread">
+            <img src="https://via.placeholder.com/300x200.png?text=Ciabatta" alt="Ciabatta">
         </div>
 
-        <div class="updateContent">
-            <h2>Update Portfolio</h2>
-            <input type="text" id="newProject" placeholder="Enter new project description" />
-            <button class="updateButton" id="updateButton">Add Project</button>
-            <p id="contentDisplay"></p>
+        <div class="bread-description">
+            <p>Bread has been a beloved staple in many cultures for centuries. Each type of bread has its own unique texture, flavor, and history. From the crispy crust of a baguette to the fluffy interior of a sourdough, every loaf tells a story of love and tradition.</p>
+            <p>Join us as we explore the different types of bread, their health benefits, and their wonderful roles in culinary traditions around the world.</p>
         </div>
 
-        <div class="tool-container">
-            <h2>Simple Calculator</h2>
-            <div id="calculator">
-                <input type="number" id="num1" placeholder="0" />
-                <select id="operator">
-                    <option value="+">+</option>
-                    <option value="-">-</option>
-                    <option value="*">*</option>
-                    <option value="/">/</option>
-                </select>
-                <input type="number" id="num2" placeholder="0" />
-                <button id="calculateButton">Calculate</button>
-            </div>
-            <div id="calcResult" class="result"></div>
-        </div>
+        <button onclick="changeImage()">Click for a Fun Bread Fact!</button>
+        <div class="result" id="breadFact" style="display:none; margin-top: 20px; font-size: 1.2em; color: #6b4226;"></div>
     </div>
 
     <script>
-        function showMore(projectDetailsId) {
-            const detailsDiv = document.getElementById(projectDetailsId);
-            detailsDiv.style.display = detailsDiv.style.display === 'block' ? 'none' : 'block';
+        const facts = [
+            "Did you know that sourdough bread is made using a naturally occurring yeast and bacteria?",
+            "Bread-making dates back to ancient times, over 14,000 years ago!",
+            "In some cultures, bread is considered a symbol of life and prosperity.",
+            "The world’s largest loaf of bread weighed over 1,000 pounds!",
+            "Whole grain breads are often more nutritious than white breads."
+        ];
+
+        function changeImage() {
+            const randomFact = facts[Math.floor(Math.random() * facts.length)];
+            const factDisplay = document.getElementById('breadFact');
+            factDisplay.style.display = 'block';
+            factDisplay.innerHTML = randomFact;
         }
-
-        document.getElementById('updateButton').onclick = function() {
-            const newProject = document.getElementById('newProject').value;
-            const contentDisplay = document.getElementById('contentDisplay');
-
-            if (newProject) {
-                const newDiv = document.createElement('div');
-                newDiv.className = 'project';
-                newDiv.innerHTML = `<h2>New Project</h2><p>${newProject}</p><button onclick="showMore('newProjectDetails')">Show More</button><div class="result" id="newProjectDetails">Details about the new project.</div>`;
-                document.querySelector('.projects').appendChild(newDiv);
-                document.getElementById('newProject').value = '';
-            }
-        };
-
-        document.getElementById('calculateButton').onclick = function() {
-            const num1 = parseFloat(document.getElementById('num1').value);
-            const num2 = parseFloat(document.getElementById('num2').value);
-            const operator = document.getElementById('operator').value;
-            let result;
-
-            switch (operator) {
-                case '+':
-                    result = num1 + num2;
-                    break;
-                case '-':
-                    result = num1 - num2;
-                    break;
-                case '*':
-                    result = num1 * num2;
-                    break;
-                case '/':
-                    result = num2 !== 0 ? num1 / num2 : 'Cannot divide by zero';
-                    break;
-                default:
-                    result = 'Invalid operation';
-            }
-
-            document.getElementById('calcResult').style.display = 'block';
-            document.getElementById('calcResult').innerHTML = `Result: ${result}`;
-        };
     </script>
 </body>
 </html>
