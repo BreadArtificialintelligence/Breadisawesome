@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>My Personal Blog</title>
+    <title>My Fun Facts and Quotes Site</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -23,18 +23,18 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .post {
+        .fact, .quote {
             border-bottom: 1px solid #ddd;
             padding: 10px 0;
         }
 
-        .post-title {
-            font-size: 24px;
+        .fact-title, .quote-title {
+            font-size: 20px;
             color: #007bff;
             cursor: pointer;
         }
 
-        .post-content {
+        .fact-content, .quote-content {
             display: none;
             color: #555;
         }
@@ -54,67 +54,95 @@
             background-color: #0056b3;
             transform: scale(1.1);
         }
-
-        #newPostTitle, #newPostContent {
-            width: 100%;
-            margin-top: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        #addPostButton {
-            margin-top: 10px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>My Personal Blog</h1>
-        <div id="posts"></div>
-        <h2>Add a New Post</h2>
-        <input type="text" id="newPostTitle" placeholder="Post Title" />
-        <textarea id="newPostContent" rows="4" placeholder="Post Content"></textarea>
-        <button id="addPostButton">Add Post</button>
+        <h1>Random Fun Facts and Quotes</h1>
+        <div id="factsSection">
+            <h2>Fun Facts</h2>
+            <button id="addFactButton">Add a Fun Fact</button>
+            <div id="facts"></div>
+            <input type="text" id="newFact" placeholder="Enter a fun fact" style="width: 100%; padding: 10px; margin-top: 10px;" />
+        </div>
+
+        <div id="quotesSection">
+            <h2>Quotes</h2>
+            <button id="addQuoteButton">Add a Quote</button>
+            <div id="quotes"></div>
+            <input type="text" id="newQuote" placeholder="Enter a quote" style="width: 100%; padding: 10px; margin-top: 10px;" />
+        </div>
     </div>
 
     <script>
-        const posts = [];
+        const facts = [];
+        const quotes = [];
 
-        document.getElementById('addPostButton').onclick = function() {
-            const title = document.getElementById('newPostTitle').value;
-            const content = document.getElementById('newPostContent').value;
-            if (title && content) {
-                const post = { title, content };
-                posts.push(post);
-                document.getElementById('newPostTitle').value = '';
-                document.getElementById('newPostContent').value = '';
-                renderPosts();
+        document.getElementById('addFactButton').onclick = function() {
+            const newFact = document.getElementById('newFact').value;
+            if (newFact) {
+                facts.push(newFact);
+                document.getElementById('newFact').value = '';
+                renderFacts();
             }
         };
 
-        function renderPosts() {
-            const postsContainer = document.getElementById('posts');
-            postsContainer.innerHTML = '';
-            posts.forEach((post, index) => {
-                const postDiv = document.createElement('div');
-                postDiv.classList.add('post');
+        document.getElementById('addQuoteButton').onclick = function() {
+            const newQuote = document.getElementById('newQuote').value;
+            if (newQuote) {
+                quotes.push(newQuote);
+                document.getElementById('newQuote').value = '';
+                renderQuotes();
+            }
+        };
 
-                const postTitle = document.createElement('div');
-                postTitle.classList.add('post-title');
-                postTitle.innerText = post.title;
-                postTitle.onclick = () => {
-                    const postContent = postDiv.querySelector('.post-content');
-                    postContent.style.display = postContent.style.display === 'none' ? 'block' : 'none';
+        function renderFacts() {
+            const factsContainer = document.getElementById('facts');
+            factsContainer.innerHTML = '';
+            facts.forEach((fact, index) => {
+                const factDiv = document.createElement('div');
+                factDiv.classList.add('fact');
+
+                const factTitle = document.createElement('div');
+                factTitle.classList.add('fact-title');
+                factTitle.innerText = `Fun Fact ${index + 1}`;
+                factTitle.onclick = () => {
+                    const factContent = factDiv.querySelector('.fact-content');
+                    factContent.style.display = factContent.style.display === 'none' ? 'block' : 'none';
                 };
 
-                const postContent = document.createElement('div');
-                postContent.classList.add('post-content');
-                postContent.innerText = post.content;
+                const factContent = document.createElement('div');
+                factContent.classList.add('fact-content');
+                factContent.innerText = fact;
 
-                postDiv.appendChild(postTitle);
-                postDiv.appendChild(postContent);
-                postsContainer.appendChild(postDiv);
+                factDiv.appendChild(factTitle);
+                factDiv.appendChild(factContent);
+                factsContainer.appendChild(factDiv);
+            });
+        }
+
+        function renderQuotes() {
+            const quotesContainer = document.getElementById('quotes');
+            quotesContainer.innerHTML = '';
+            quotes.forEach((quote, index) => {
+                const quoteDiv = document.createElement('div');
+                quoteDiv.classList.add('quote');
+
+                const quoteTitle = document.createElement('div');
+                quoteTitle.classList.add('quote-title');
+                quoteTitle.innerText = `Quote ${index + 1}`;
+                quoteTitle.onclick = () => {
+                    const quoteContent = quoteDiv.querySelector('.quote-content');
+                    quoteContent.style.display = quoteContent.style.display === 'none' ? 'block' : 'none';
+                };
+
+                const quoteContent = document.createElement('div');
+                quoteContent.classList.add('quote-content');
+                quoteContent.innerText = quote;
+
+                quoteDiv.appendChild(quoteTitle);
+                quoteDiv.appendChild(quoteContent);
+                quotesContainer.appendChild(quoteDiv);
             });
         }
     </script>
