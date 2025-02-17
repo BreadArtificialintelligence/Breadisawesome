@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>Bread Lovers Paradise</title>
+    <title>Explore Nature's Wonders</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f2e3d4;
+            background-color: #e0f7fa;
             margin: 0;
             padding: 20px;
             text-align: center;
@@ -12,14 +12,14 @@
         }
 
         h1 {
-            color: #5a3e28;
+            color: #00796b;
             font-size: 3.5em;
             margin-bottom: 10px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
-            color: #7e5c49;
+            color: #004d40;
             font-size: 2.5em;
             margin: 20px 0;
             font-style: italic;
@@ -55,15 +55,15 @@
             transform: scale(1.1);
         }
 
-        .bread-description {
+        .nature-description {
             text-align: left;
             margin: 20px 0;
             font-size: 1.3em;
-            color: #4e3b30;
+            color: #004d40;
         }
 
         button {
-            background-color: #5a3e28;
+            background-color: #00796b;
             color: white;
             border: none;
             padding: 12px 24px;
@@ -74,15 +74,15 @@
         }
 
         button:hover {
-            background-color: #4b3224;
+            background-color: #004d40;
             transform: translateY(-2px);
         }
 
-        .result {
+        .fact {
             margin-top: 20px;
             font-size: 1.5em;
-            color: #5a3e28;
-            border: 2px solid #5a3e28;
+            color: #00796b;
+            border: 2px solid #00796b;
             border-radius: 5px;
             padding: 10px;
             display: none;
@@ -103,37 +103,37 @@
 </head>
 <body>
     <div class="container">
-        <h1>Welcome to the Bread Lovers Paradise</h1>
-        <h2>Celebrating Bread in All Its Forms</h2>
+        <h1>Welcome to Nature's Wonders</h1>
+        <h2>Discover the Beauty of the Natural World</h2>
 
         <div class="image-container">
-            <img src="https://example.com/baguette.jpg" alt="Baguette">
-            <img src="https://example.com/sourdough.jpg" alt="Sourdough">
-            <img src="https://example.com/wholegrain.jpg" alt="Whole Grain Bread">
-            <img src="https://example.com/croissant.jpg" alt="Croissant">
+            <img src="https://example.com/mountains.jpg" alt="Mountains">
+            <img src="https://example.com/forest.jpg" alt="Forest">
+            <img src="https://example.com/ocean.jpg" alt="Ocean">
+            <img src="https://example.com/desert.jpg" alt="Desert">
         </div>
 
-        <div class="bread-description">
-            <p>Bread has been a beloved staple in many cultures for centuries. Each type of bread has its own unique texture, flavor, and history. From the crispy crust of a baguette to the fluffy interior of sourdough, every loaf tells a story of love and tradition.</p>
-            <p>Join us as we explore the different types of bread, their health benefits, and their wonderful roles in culinary traditions around the world.</p>
+        <div class="nature-description">
+            <p>Nature is a treasure trove of beauty, filled with breathtaking landscapes and diverse ecosystems. From towering mountains to serene oceans, every corner of our planet showcases its unique charm and character.</p>
+            <p>Join us as we explore these magnificent wonders, understand their significance, and learn about the importance of conservation efforts.</p>
         </div>
 
-        <button onclick="changeImage()">Click for a Fun Bread Fact!</button>
-        <div class="result" id="breadFact"></div>
+        <button onclick="showFact()">Click for a Nature Fact!</button>
+        <div class="fact" id="natureFact"></div>
     </div>
 
     <script>
         const facts = [
-            "Did you know that sourdough bread is made using a naturally occurring yeast and bacteria?",
-            "Bread-making dates back to ancient times, over 14,000 years ago!",
-            "In some cultures, bread is considered a symbol of life and prosperity.",
-            "The world’s largest loaf of bread weighed over 1,000 pounds!",
-            "Whole grain breads are often more nutritious than white breads."
+            "Did you know that over 80% of the ocean is still unexplored?",
+            "Mount Everest grows about 4 millimeters taller every year!",
+            "Trees can communicate with each other through a network of fungi in the soil.",
+            "Coral reefs support around 25% of all marine life.",
+            "The Amazon rainforest produces more than 20% of the world's oxygen."
         ];
 
-        function changeImage() {
+        function showFact() {
             const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            const factDisplay = document.getElementById('breadFact');
+            const factDisplay = document.getElementById('natureFact');
             factDisplay.style.display = 'block';
             factDisplay.innerHTML = randomFact;
             saveFact(randomFact);
@@ -146,8 +146,8 @@
         window.onload = function() {
             const lastFact = getCookie("lastFact");
             if (lastFact) {
-                document.getElementById('breadFact').innerHTML = lastFact;
-                document.getElementById('breadFact').style.display = 'block';
+                document.getElementById('natureFact').innerHTML = lastFact;
+                document.getElementById('natureFact').style.display = 'block';
             }
         }
 
