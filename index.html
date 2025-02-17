@@ -1,28 +1,47 @@
 <html>
 <head>
-    <title>Explore the Wonders of Technology</title>
+    <title>My Portfolio</title>
     <style>
         body {
-            font-family: 'Verdana', sans-serif;
-            background-color: #e3f2fd;
+            font-family: 'Arial', sans-serif;
+            background-color: #fff3e0;
             margin: 0;
-            padding: 30px;
-            text-align: center;
+            padding: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             animation: fadeIn 1s;
         }
 
-        h1 {
-            color: #42a5f5;
-            font-size: 4em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        header {
+            width: 100%;
+            background-color: #009688;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
-        h2 {
-            color: #1e88e5;
-            font-size: 2.3em;
-            margin: 15px 0;
-            font-style: italic;
+        h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ffab00;
         }
 
         .container {
@@ -30,64 +49,49 @@
             margin: auto;
             padding: 20px;
             background: #ffffff;
-            border-radius: 20px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transform: translateY(-20px);
             animation: slideIn 0.5s forwards 0.5s;
         }
 
-        .image-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
+        .portfolio-item {
+            background-color: #ffein6;
+            border: 1px solid #009688;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
 
-        .image-container img {
-            width: 100%;
-            border-radius: 15px;
-            filter: brightness(0.9);
-            transition: filter 0.3s, transform 0.3s;
+        .portfolio-item:hover {
+            transform: scale(1.02);
         }
 
-        .image-container img:hover {
-            filter: brightness(1);
-            transform: scale(1.05);
-        }
-
-        .tech-description {
-            text-align: left;
-            margin: 20px 0;
-            font-size: 1.2em;
-            color: #424242;
+        .blog-post {
+            margin-top: 30px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         button {
-            background-color: #42a5f5;
+            background-color: #ff5722;
             color: white;
             border: none;
             padding: 15px 30px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 20px;
-            transition: background-color 0.3s, transform 0.2s;
+            transition: background-color 0.3s;
+            margin-top: 20px;
         }
 
         button:hover {
-            background-color: #1e88e5;
-            transform: translateY(-3px);
-        }
-
-        .fact {
-            margin-top: 30px;
-            font-size: 1.6em;
-            color: #42a5f5;
-            border: 2px dashed #42a5f5;
-            border-radius: 5px;
-            padding: 20px;
-            display: none;
-            transition: all 0.3s;
+            background-color: #e64a19;
         }
 
         @keyframes fadeIn {
@@ -103,74 +107,74 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Technology Innovations</h1>
-        <h2>Discover the Future of Our World</h2>
-
-        <div class="image-container">
-            <img src="https://example.com/artificial-intelligence.jpg" alt="Artificial Intelligence">
-            <img src="https://example.com/blockchain.jpg" alt="Blockchain">
-            <img src="https://example.com/robotics.jpg" alt="Robotics">
-            <img src="https://example.com/space-exploration.jpg" alt="Space Exploration">
+    <header>
+        <h1>My Portfolio</h1>
+        <nav>
+            <a href="#" onclick="showSection('portfolio')">Portfolio</a>
+            <a href="#" onclick="showSection('blog')">Blog</a>
+        </nav>
+    </header>
+    
+    <div class="container" id="portfolio" style="display: none;">
+        <h2>My Work</h2>
+        <div class="portfolio-item" onclick="viewProject('Project 1 Details')">
+            <h3>Project 1</h3>
+            <p>A brief description of Project 1.</p>
         </div>
-
-        <div class="tech-description">
-            <p>Step into the exciting realm of technology where groundbreaking innovations are constantly reshaping our future. From artificial intelligence to blockchain, these advancements hold the potential to transform how we live, work, and interact with the world around us.</p>
-            <p>Join us as we explore the wonders of modern technology and the innovative minds that are pushing the limits of possibility.</p>
+        <div class="portfolio-item" onclick="viewProject('Project 2 Details')">
+            <h3>Project 2</h3>
+            <p>A brief description of Project 2.</p>
         </div>
+        <div class="portfolio-item" onclick="viewProject('Project 3 Details')">
+            <h3>Project 3</h3>
+            <p>A brief description of Project 3.</p>
+        </div>
+        <button onclick="showBlog()">Go to Blog</button>
+    </div>
 
-        <button onclick="showFact()">Discover a Tech Fact!</button>
-        <div class="fact" id="techFact"></div>
-        <button onclick="addToWebsite()">Add to Website</button>
+    <div class="container" id="blog" style="display: none;">
+        <h2>My Blog</h2>
+        <div class="blog-post">
+            <h3>Blog Post Title 1</h3>
+            <p>A short excerpt from my first blog post.</p>
+        </div>
+        <div class="blog-post">
+            <h3>Blog Post Title 2</h3>
+            <p>A short excerpt from my second blog post.</p>
+        </div>
+        <div class="blog-post">
+            <h3>Blog Post Title 3</h3>
+            <p>A short excerpt from my third blog post.</p>
+        </div>
+        <button onclick="showPortfolio()">Go to Portfolio</button>
     </div>
 
     <script>
-        const facts = [
-            "Over 90% of the world's data was created in the last two years.",
-            "The first 1GB hard drive was announced in 1980, weighing over 500 pounds.",
-            "AI can now generate realistic human faces that do not exist.",
-            "Blockchain technology is being used to secure everything from financial transactions to supply chains.",
-            "Quantum computers could solve complex problems much faster than traditional computers."
-        ];
+        function showSection(section) {
+            document.getElementById('portfolio').style.display = 'none';
+            document.getElementById('blog').style.display = 'none';
 
-        function showFact() {
-            const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            const factDisplay = document.getElementById('techFact');
-            factDisplay.style.display = 'block';
-            factDisplay.innerHTML = randomFact;
-            saveFact(randomFact);
+            if (section === 'portfolio') {
+                document.getElementById('portfolio').style.display = 'block';
+            } else if (section === 'blog') {
+                document.getElementById('blog').style.display = 'block';
+            }
         }
 
-        function saveFact(fact) {
-            document.cookie = "lastFact=" + encodeURIComponent(fact) + "; path=/; max-age=" + 60 * 60 * 24;
+        function viewProject(details) {
+            alert(details);
+        }
+
+        function showBlog() {
+            showSection('blog');
+        }
+
+        function showPortfolio() {
+            showSection('portfolio');
         }
 
         window.onload = function() {
-            const lastFact = getCookie("lastFact");
-            if (lastFact) {
-                document.getElementById('techFact').innerHTML = lastFact;
-                document.getElementById('techFact').style.display = 'block';
-            }
-        }
-
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        function addToWebsite() {
-            const factDisplay = document.getElementById('techFact');
-            if (factDisplay.style.display === 'block') {
-                const newFact = factDisplay.innerHTML;
-                const newList = document.createElement('div');
-                newList.innerHTML = `<p>${newFact}</p>`;
-                newList.style.border = '1px solid #42a5f5';
-                newList.style.borderRadius = '5px';
-                newList.style.padding = '10px';
-                newList.style.marginTop = '10px';
-                document.querySelector('.container').appendChild(newList);
-            }
+            showSection('portfolio');
         }
     </script>
 </body>
