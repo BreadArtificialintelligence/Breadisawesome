@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>Explore the Wonders of Nature</title>
+    <title>Explore the Wonders of Technology</title>
     <style>
         body {
             font-family: 'Verdana', sans-serif;
-            background-color: #ffe0b2;
+            background-color: #e3f2fd;
             margin: 0;
             padding: 30px;
             text-align: center;
@@ -12,14 +12,14 @@
         }
 
         h1 {
-            color: #ff7043;
+            color: #42a5f5;
             font-size: 4em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         h2 {
-            color: #d84315;
+            color: #1e88e5;
             font-size: 2.3em;
             margin: 15px 0;
             font-style: italic;
@@ -56,15 +56,15 @@
             transform: scale(1.05);
         }
 
-        .nature-description {
+        .tech-description {
             text-align: left;
             margin: 20px 0;
             font-size: 1.2em;
-            color: #5d4037;
+            color: #424242;
         }
 
         button {
-            background-color: #ff6f20;
+            background-color: #42a5f5;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -75,15 +75,15 @@
         }
 
         button:hover {
-            background-color: #d84315;
+            background-color: #1e88e5;
             transform: translateY(-3px);
         }
 
         .fact {
             margin-top: 30px;
             font-size: 1.6em;
-            color: #ff6f20;
-            border: 2px dashed #ff6f20;
+            color: #42a5f5;
+            border: 2px dashed #42a5f5;
             border-radius: 5px;
             padding: 20px;
             display: none;
@@ -104,37 +104,37 @@
 </head>
 <body>
     <div class="container">
-        <h1>Nature's Wonders</h1>
-        <h2>Explore the Beauty of Our Planet</h2>
+        <h1>Technology Innovations</h1>
+        <h2>Discover the Future of Our World</h2>
 
         <div class="image-container">
-            <img src="https://example.com/mountains.jpg" alt="Mountains">
-            <img src="https://example.com/forest.jpg" alt="Forest">
-            <img src="https://example.com/ocean.jpg" alt="Ocean">
-            <img src="https://example.com/desert.jpg" alt="Desert">
+            <img src="https://example.com/artificial-intelligence.jpg" alt="Artificial Intelligence">
+            <img src="https://example.com/blockchain.jpg" alt="Blockchain">
+            <img src="https://example.com/robotics.jpg" alt="Robotics">
+            <img src="https://example.com/space-exploration.jpg" alt="Space Exploration">
         </div>
 
-        <div class="nature-description">
-            <p>Immerse yourself in the beauty of nature, where every landscape tells a story and every ecosystem is crucial to our world. From majestic mountains to tranquil oceans, nature is a reminder of the incredible planet we live on.</p>
-            <p>Join us in celebrating these extraordinary wonders as we delve deeper into their significance and the pressing need for conservation efforts.</p>
+        <div class="tech-description">
+            <p>Step into the exciting realm of technology where groundbreaking innovations are constantly reshaping our future. From artificial intelligence to blockchain, these advancements hold the potential to transform how we live, work, and interact with the world around us.</p>
+            <p>Join us as we explore the wonders of modern technology and the innovative minds that are pushing the limits of possibility.</p>
         </div>
 
-        <button onclick="showFact()">Discover a Nature Fact!</button>
-        <div class="fact" id="natureFact"></div>
+        <button onclick="showFact()">Discover a Tech Fact!</button>
+        <div class="fact" id="techFact"></div>
     </div>
 
     <script>
         const facts = [
-            "Did you know that over 80% of the ocean is still unexplored?",
-            "Mount Everest grows about 4 millimeters taller every year!",
-            "Trees can communicate with each other through a network of fungi in the soil.",
-            "Coral reefs support around 25% of all marine life.",
-            "The Amazon rainforest produces more than 20% of the world's oxygen."
+            "Over 90% of the world's data was created in the last two years.",
+            "The first 1GB hard drive was announced in 1980, weighing over 500 pounds.",
+            "AI can now generate realistic human faces that do not exist.",
+            "Blockchain technology is being used to secure everything from financial transactions to supply chains.",
+            "Quantum computers could solve complex problems much faster than traditional computers."
         ];
 
         function showFact() {
             const randomFact = facts[Math.floor(Math.random() * facts.length)];
-            const factDisplay = document.getElementById('natureFact');
+            const factDisplay = document.getElementById('techFact');
             factDisplay.style.display = 'block';
             factDisplay.innerHTML = randomFact;
             saveFact(randomFact);
@@ -147,8 +147,8 @@
         window.onload = function() {
             const lastFact = getCookie("lastFact");
             if (lastFact) {
-                document.getElementById('natureFact').innerHTML = lastFact;
-                document.getElementById('natureFact').style.display = 'block';
+                document.getElementById('techFact').innerHTML = lastFact;
+                document.getElementById('techFact').style.display = 'block';
             }
         }
 
