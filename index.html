@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>My Portfolio</title>
+    <title>My Personal Portfolio</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #fff3e0;
+            background-color: #f0f4c3;
             margin: 0;
             padding: 0;
             color: #333;
@@ -16,7 +16,7 @@
 
         header {
             width: 100%;
-            background-color: #009688;
+            background-color: #3f51b5;
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -41,7 +41,7 @@
         }
 
         nav a:hover {
-            color: #ffab00;
+            color: #ffeb3b;
         }
 
         .container {
@@ -56,9 +56,21 @@
             animation: slideIn 0.5s forwards 0.5s;
         }
 
+        .fun-facts {
+            background-color: #c5cae9;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+
+        .fun-facts:hover {
+            transform: scale(1.02);
+        }
+
         .portfolio-item {
-            background-color: #ffein6;
-            border: 1px solid #009688;
+            background-color: #ffe57f;
+            border: 1px solid #3f51b5;
             border-radius: 8px;
             padding: 15px;
             margin: 10px 0;
@@ -68,14 +80,6 @@
 
         .portfolio-item:hover {
             transform: scale(1.02);
-        }
-
-        .blog-post {
-            margin-top: 30px;
-            background-color: #e0f2f1;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
         button {
@@ -108,60 +112,75 @@
 </head>
 <body>
     <header>
-        <h1>My Portfolio</h1>
+        <h1>My Personal Portfolio</h1>
         <nav>
             <a href="#" onclick="showSection('portfolio')">Portfolio</a>
             <a href="#" onclick="showSection('blog')">Blog</a>
+            <a href="#" onclick="showSection('funFacts')">Fun Facts</a>
         </nav>
     </header>
     
     <div class="container" id="portfolio" style="display: none;">
         <h2>My Work</h2>
-        <div class="portfolio-item" onclick="viewProject('Project 1 Details')">
+        <div class="portfolio-item" onclick="viewProject('Project 1: An awesome web app.')">
             <h3>Project 1</h3>
             <p>A brief description of Project 1.</p>
         </div>
-        <div class="portfolio-item" onclick="viewProject('Project 2 Details')">
+        <div class="portfolio-item" onclick="viewProject('Project 2: A creative design project.')">
             <h3>Project 2</h3>
             <p>A brief description of Project 2.</p>
         </div>
-        <div class="portfolio-item" onclick="viewProject('Project 3 Details')">
+        <div class="portfolio-item" onclick="viewProject('Project 3: A cool mobile app.')">
             <h3>Project 3</h3>
             <p>A brief description of Project 3.</p>
         </div>
         <button onclick="showBlog()">Go to Blog</button>
+        <button onclick="showSection('funFacts')">Fun Facts About Me</button>
     </div>
 
     <div class="container" id="blog" style="display: none;">
         <h2>My Blog</h2>
-        <div class="blog-post">
+        <div class="portfolio-item" onclick="viewPost('Blog Post 1: My coding journey.')">
             <h3>Blog Post Title 1</h3>
             <p>A short excerpt from my first blog post.</p>
         </div>
-        <div class="blog-post">
+        <div class="portfolio-item" onclick="viewPost('Blog Post 2: Tips for aspiring developers.')">
             <h3>Blog Post Title 2</h3>
             <p>A short excerpt from my second blog post.</p>
         </div>
-        <div class="blog-post">
-            <h3>Blog Post Title 3</h3>
-            <p>A short excerpt from my third blog post.</p>
+        <button onclick="showPortfolio()">Go to Portfolio</button>
+        <button onclick="showSection('funFacts')">Fun Facts About Me</button>
+    </div>
+
+    <div class="container" id="funFacts" style="display: none;">
+        <h2>Fun Facts About Me</h2>
+        <div class="fun-facts">
+            <p>I love hiking on weekends.</p>
+        </div>
+        <div class="fun-facts">
+            <p>I'm a coffee enthusiast!</p>
+        </div>
+        <div class="fun-facts">
+            <p>I enjoy playing guitar in my free time.</p>
         </div>
         <button onclick="showPortfolio()">Go to Portfolio</button>
+        <button onclick="showBlog()">Go to Blog</button>
     </div>
 
     <script>
         function showSection(section) {
             document.getElementById('portfolio').style.display = 'none';
             document.getElementById('blog').style.display = 'none';
+            document.getElementById('funFacts').style.display = 'none';
 
-            if (section === 'portfolio') {
-                document.getElementById('portfolio').style.display = 'block';
-            } else if (section === 'blog') {
-                document.getElementById('blog').style.display = 'block';
-            }
+            document.getElementById(section).style.display = 'block';
         }
 
         function viewProject(details) {
+            alert(details);
+        }
+        
+        function viewPost(details) {
             alert(details);
         }
 
