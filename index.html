@@ -108,6 +108,28 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        .cheese-container {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .cheese-container svg {
+            width: 150px;
+            height: 150px;
+        }
+
+        .cheese-text {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 2em;
+            color: #ffeb3b;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-shadow: 2px 2px #3f51b5;
+        }
+
     </style>
 </head>
 <body>
@@ -120,6 +142,19 @@
         </nav>
     </header>
     
+    <div class="container" id="cheese">
+        <div class="cheese-container">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#ffe57f">
+                <path d="M2 32s6-25 30-25 30 25 30 25-6 25-30 25S2 32 2 32z"/>
+                <circle cx="10" cy="24" r="3" fill="#ff5722"/>
+                <circle cx="20" cy="16" r="4" fill="#ff5722"/>
+                <circle cx="32" cy="20" r="5" fill="#ff5722"/>
+                <circle cx="40" cy="30" r="3" fill="#ff5722"/>
+            </svg>
+            <div class="cheese-text">Say Cheese!</div>
+        </div>
+    </div>
+
     <div class="container" id="portfolio" style="display: none;">
         <h2>My Work</h2>
         <div class="portfolio-item" onclick="viewProject('Project 1: An awesome web app.')">
@@ -172,7 +207,6 @@
             document.getElementById('portfolio').style.display = 'none';
             document.getElementById('blog').style.display = 'none';
             document.getElementById('funFacts').style.display = 'none';
-
             document.getElementById(section).style.display = 'block';
         }
 
