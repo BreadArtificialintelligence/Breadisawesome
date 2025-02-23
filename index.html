@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>My Personal Portfolio</title>
+    <title>My Personal Bread Conversation</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f4c3;
+            background-color: #e0f7fa;
             margin: 0;
             padding: 0;
             color: #333;
@@ -16,7 +16,7 @@
 
         header {
             width: 100%;
-            background-color: #3f51b5;
+            background-color: #00796b;
             color: white;
             padding: 20px 0;
             text-align: center;
@@ -56,34 +56,8 @@
             animation: slideIn 0.5s forwards 0.5s;
         }
 
-        .fun-facts {
-            background-color: #c5cae9;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 20px 0;
-            transition: transform 0.2s;
-        }
-
-        .fun-facts:hover {
-            transform: scale(1.02);
-        }
-
-        .portfolio-item {
-            background-color: #ffe57f;
-            border: 1px solid #3f51b5;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.02);
-        }
-
         button {
-            background-color: #ff5722;
+            background-color: #d32f2f;
             color: white;
             border: none;
             padding: 15px 30px;
@@ -95,7 +69,7 @@
         }
 
         button:hover {
-            background-color: #e64a19;
+            background-color: #c62828;
         }
 
         @keyframes fadeIn {
@@ -108,126 +82,38 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .cheese-container {
-            text-align: center;
-            margin: 30px 0;
-            position: relative;
-        }
-
-        .cheese-container svg {
-            width: 150px;
-            height: 150px;
-        }
-
-        .cheese-text {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            font-size: 2em;
-            color: #ffeb3b;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-shadow: 2px 2px #3f51b5;
-        }
-
     </style>
 </head>
 <body>
     <header>
-        <h1>My Personal Portfolio</h1>
+        <h1>Bread Conversations</h1>
         <nav>
-            <a href="#" onclick="showSection('portfolio')">Portfolio</a>
-            <a href="#" onclick="showSection('blog')">Blog</a>
-            <a href="#" onclick="showSection('funFacts')">Fun Facts</a>
+            <a href="#" onclick="showSection('home')">Home</a>
+            <a href="#" onclick="showSection('conversation')">Recent Conversation</a>
         </nav>
     </header>
     
-    <div class="container" id="cheese">
-        <div class="cheese-container">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#ffe57f">
-                <path d="M2 32s6-25 30-25 30 25 30 25-6 25-30 25S2 32 2 32z"/>
-                <circle cx="10" cy="24" r="3" fill="#ff5722"/>
-                <circle cx="20" cy="16" r="4" fill="#ff5722"/>
-                <circle cx="32" cy="20" r="5" fill="#ff5722"/>
-                <circle cx="40" cy="30" r="3" fill="#ff5722"/>
-            </svg>
-            <div class="cheese-text">Say Cheese!</div>
-        </div>
+    <div class="container" id="home">
+        <h2>Welcome to My Bread Conversation Page</h2>
+        <p>You can explore my recent conversations about bread types and favorite recipes.</p>
+        <button onclick="showSection('conversation')">View Recent Conversation</button>
     </div>
 
-    <div class="container" id="portfolio" style="display: none;">
-        <h2>My Work</h2>
-        <div class="portfolio-item" onclick="viewProject('Project 1: A web app I developed to streamline task management for teams. It integrates notifications and progress tracking.')">
-            <h3>Task Tracker App</h3>
-            <p>A web app that helps streamline task management and enhances team collaboration.</p>
-        </div>
-        <div class="portfolio-item" onclick="viewProject('Project 2: A design project focused on creating an immersive user experience for E-commerce platforms.')">
-            <h3>E-commerce UX Design</h3>
-            <p>A creative design project aimed at revolutionizing online shopping experiences.</p>
-        </div>
-        <div class="portfolio-item" onclick="viewProject('Project 3: My innovative mobile app that connects users with local services in real-time.')">
-            <h3>Local Services App</h3>
-            <p>A mobile app that connects users with local service providers quickly and efficiently.</p>
-        </div>
-        <button onclick="showBlog()">Go to Blog</button>
-        <button onclick="showSection('funFacts')">Fun Facts About Me</button>
-    </div>
-
-    <div class="container" id="blog" style="display: none;">
-        <h2>My Blog</h2>
-        <div class="portfolio-item" onclick="viewPost('Blog Post 1: I share my journey of learning how to code, tackling challenges, and celebrating milestones.')">
-            <h3>Learning to Code</h3>
-            <p>Insights and reflections from my journey into the world of programming.</p>
-        </div>
-        <div class="portfolio-item" onclick="viewPost('Blog Post 2: Here are some tips I've compiled for those who are just starting in tech.')">
-            <h3>Tips for New Developers</h3>
-            <p>Essential advice and strategies for emerging developers in today’s job market.</p>
-        </div>
-        <button onclick="showPortfolio()">Go to Portfolio</button>
-        <button onclick="showSection('funFacts')">Fun Facts About Me</button>
-    </div>
-
-    <div class="container" id="funFacts" style="display: none;">
-        <h2>Fun Facts About Me</h2>
-        <div class="fun-facts">
-            <p>I love hiking in the mountains during weekends, embracing nature’s beauty.</p>
-        </div>
-        <div class="fun-facts">
-            <p>I'm a coffee enthusiast, always on the lookout for the perfect brew.</p>
-        </div>
-        <div class="fun-facts">
-            <p>I enjoy playing guitar and often compose my own music in my spare time.</p>
-        </div>
-        <button onclick="showPortfolio()">Go to Portfolio</button>
-        <button onclick="showBlog()">Go to Blog</button>
+    <div class="container" id="conversation" style="display: none;">
+        <h2>Recent Conversation Summary</h2>
+        <p>We discussed favorite bread types, and my favorite is baguette. I also asked if you have tried making them.</p>
+        <button onclick="showSection('home')">Back to Home</button>
     </div>
 
     <script>
         function showSection(section) {
-            document.getElementById('portfolio').style.display = 'none';
-            document.getElementById('blog').style.display = 'none';
-            document.getElementById('funFacts').style.display = 'none';
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('conversation').style.display = 'none';
             document.getElementById(section).style.display = 'block';
         }
 
-        function viewProject(details) {
-            alert(details);
-        }
-        
-        function viewPost(details) {
-            alert(details);
-        }
-
-        function showBlog() {
-            showSection('blog');
-        }
-
-        function showPortfolio() {
-            showSection('portfolio');
-        }
-
         window.onload = function() {
-            showSection('portfolio');
+            showSection('home');
         }
     </script>
 </body>
