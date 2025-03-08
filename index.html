@@ -1,226 +1,25 @@
 <html>
 <head>
-    <title>Virtual Pet</title>
+    <title>Bread Photo</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #eef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            background-color: #f8f8f8;
         }
 
-        header {
-            background-color: #6a1b9a;
-            color: white;
-            padding: 15px;
-            text-align: center;
-            border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        h1 {
-            margin: 0;
-            font-size: 2em;
-        }
-
-        .container {
-            background-color: white;
-            padding: 20px;
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 5px solid #d1a56f;
             border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            max-width: 500px;
-            margin: 20px auto;
-            text-align: center;
-        }
-
-        .pet {
-            width: 100px;
-            height: 100px;
-            background-color: #9c27b0;
-            border-radius: 50%;
-            transition: transform 0.2s;
-            display: inline-block;
-            margin: 20px;
-        }
-
-        .pet:hover {
-            transform: scale(1.1);
-        }
-
-        button {
-            background-color: #43b581;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #3ba05e;
-        }
-
-        #petStatus {
-            margin-top: 20px;
-        }
-
-        .status {
-            margin: 5px 0;
-        }
-
-        .form-container {
-            background-color: #fafafa;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 500px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .blog, .resources {
-            margin: 20px auto;
-            max-width: 500px;
-        }
-
-        .blog-item, .resource-item {
-            background-color: #e3f2fd;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Virtual Pet</h1>
-    </header>
-
-    <div class="container">
-        <div id="pet" class="pet"></div>
-        <div id="petStatus">
-            <div class="status" id="nameStatus">Name: No Name</div>
-            <div class="status" id="hungerStatus">Hunger: 100</div>
-            <div class="status" id="happinessStatus">Happiness: 100</div>
-        </div>
-        <button onclick="adoptPet()">Adopt Pet</button>
-        <button onclick="feedPet()">Feed Pet</button>
-        <button onclick="playWithPet()">Play with Pet</button>
-    </div>
-
-    <div class="form-container">
-        <h2>Contact Us</h2>
-        <div class="form-group">
-            <label for="contactName">Name:</label>
-            <input type="text" id="contactName" placeholder="Your Name">
-        </div>
-        <div class="form-group">
-            <label for="contactMessage">Message:</label>
-            <textarea id="contactMessage" placeholder="Your Message"></textarea>
-        </div>
-        <button onclick="submitContactForm()">Submit</button>
-    </div>
-
-    <div class="blog">
-        <h2>Blog</h2>
-        <div class="blog-item">Update: We have added new features to your virtual pet experience!</div>
-        <div class="blog-item">Thought: How to take care of your pet to keep it happy.</div>
-    </div>
-
-    <div class="resources">
-        <h2>Resource Hub</h2>
-        <div class="resource-item">Guide to feeding your pet.</div>
-        <div class="resource-item">Fun games to play with your pet.</div>
-    </div>
-
-    <script>
-        let pet = {
-            name: '',
-            hunger: 100,
-            happiness: 100
-        };
-
-        function adoptPet() {
-            const petName = prompt("What will you name your pet?");
-            if (petName) {
-                pet.name = petName;
-                updatePetStatus();
-                savePetData();
-            }
-        }
-
-        function feedPet() {
-            if (pet.hunger < 100) {
-                pet.hunger = Math.min(pet.hunger + 10, 100);
-                updatePetStatus();
-                savePetData();
-            }
-        }
-
-        function playWithPet() {
-            if (pet.happiness < 100) {
-                pet.happiness = Math.min(pet.happiness + 10, 100);
-                updatePetStatus();
-                savePetData();
-            }
-        }
-        
-        function submitContactForm() {
-            const name = document.getElementById('contactName').value;
-            const message = document.getElementById('contactMessage').value;
-            if (name && message) {
-                alert("Thank you for your message, " + name + "!");
-                document.getElementById('contactName').value = '';
-                document.getElementById('contactMessage').value = '';
-            } else {
-                alert("Please fill out both fields.");
-            }
-        }
-
-        function updatePetStatus() {
-            document.getElementById('nameStatus').textContent = "Name: " + pet.name;
-            document.getElementById('hungerStatus').textContent = "Hunger: " + pet.hunger;
-            document.getElementById('happinessStatus').textContent = "Happiness: " + pet.happiness;
-        }
-
-        function savePetData() {
-            document.cookie = "petData=" + JSON.stringify(pet) + ";path=/;max-age=86400";
-        }
-
-        function loadPetData() {
-            const cookieData = document.cookie.split('; ').find(row => row.startsWith('petData='));
-            if (cookieData) {
-                pet = JSON.parse(cookieData.split('=')[1]);
-                updatePetStatus();
-            }
-        }
-
-        loadPetData();
-
-        setInterval(() => {
-            if (pet.hunger > 0) pet.hunger -= 1;
-            if (pet.happiness > 0) pet.happiness -= 1;
-            updatePetStatus();
-            savePetData();
-        }, 10000);
-    </script>
+    <img src="https://via.placeholder.com/400?text=Bread" alt="Bread">
 </body>
 </html>
