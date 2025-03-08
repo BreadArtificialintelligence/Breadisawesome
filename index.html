@@ -9,18 +9,14 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #ff0000;
-            background-image: url('https://via.placeholder.com/1920x1080/FF0000/FFFFFF?text=Background');
-            background-size: cover;
-            background-position: center;
-            color: #333;
+            background-color: #ffecb3;
             font-family: Arial, sans-serif;
         }
 
         img {
             max-width: 100%;
             height: auto;
-            border: 5px solid #d1a56f;
+            border: 5px solid #795548;
             border-radius: 10px;
             margin-bottom: 20px;
         }
@@ -28,28 +24,99 @@
         .quote-section {
             background-color: #ffffff;
             border-radius: 10px;
-            padding: 20px;
+            padding: 30px;
             width: 80%;
             max-width: 600px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .quote {
-            margin: 10px 0;
+            margin: 15px 0;
             font-style: italic;
-            border-left: 4px solid #d1a56f;
-            padding-left: 10px;
+            color: #333;
+            border-left: 4px solid #795548;
+            padding-left: 15px;
+            line-height: 1.6;
+        }
+
+        .add-quote {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            width: 100%;
+            border: 2px solid #795548;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #795548;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4e3b30;
         }
     </style>
 </head>
 <body>
     <img src="https://via.placeholder.com/400?text=Bread" alt="Bread">
-    <div class="quote-section">
+    <div class="quote-section" id="quote-section">
         <div class="quote">"Fresh bread is the best kind of bread."</div>
         <div class="quote">"A loaf of bread is the start of a meal and a end of hunger."</div>
         <div class="quote">"Bread: the staff of life."</div>
         <div class="quote">"Good bread is the foundation of a good meal."</div>
         <div class="quote">"Bread is the key to a happy heart."</div>
     </div>
+    <div class="add-quote">
+        <input type="text" id="quote-input" placeholder="Add your quote here...">
+        <button onclick="addQuote()">Add Quote</button>
+    </div>
+
+    <script>
+        function addQuote() {
+            const input = document.getElementById("quote-input");
+            const newQuote = input.value.trim();
+            if (newQuote) {
+                const quoteSection = document.getElementById("quote-section");
+                const quoteDiv = document.createElement("div");
+                quoteDiv.classList.add("quote");
+                quoteDiv.textContent = newQuote;
+                quoteSection.appendChild(quoteDiv);
+                input.value = '';
+                saveQuotes();
+            }
+        }
+
+        function saveQuotes() {
+            const quotes = Array.from(document.querySelectorAll('.quote')).map(quote => quote.textContent);
+            document.cookie = "quotes=" + JSON.stringify(quotes) + "; path=/";
+        }
+
+        function loadQuotes() {
+            const quotesCookie = document.cookie.split('; ').find(row => row.startsWith('quotes='));
+            if (quotesCookie) {
+                const quotes = JSON.parse(decodeURIComponent(quotesCookie.split('=')[1]));
+                quotes.forEach(quote => {
+                    const quoteSection = document.getElementById("quote-section");
+                    const quoteDiv = document.createElement("div");
+                    quoteDiv.classList.add("quote");
+                    quoteDiv.textContent = quote;
+                    quoteSection.appendChild(quoteDiv);
+                });
+            }
+        }
+
+        window.onload = loadQuotes;
+    </script>
 </body>
 </html>
