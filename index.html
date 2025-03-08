@@ -71,6 +71,43 @@
         .status {
             margin: 5px 0;
         }
+
+        .form-container {
+            background-color: #fafafa;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .blog, .resources {
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .blog-item, .resource-item {
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -88,6 +125,31 @@
         <button onclick="adoptPet()">Adopt Pet</button>
         <button onclick="feedPet()">Feed Pet</button>
         <button onclick="playWithPet()">Play with Pet</button>
+    </div>
+
+    <div class="form-container">
+        <h2>Contact Us</h2>
+        <div class="form-group">
+            <label for="contactName">Name:</label>
+            <input type="text" id="contactName" placeholder="Your Name">
+        </div>
+        <div class="form-group">
+            <label for="contactMessage">Message:</label>
+            <textarea id="contactMessage" placeholder="Your Message"></textarea>
+        </div>
+        <button onclick="submitContactForm()">Submit</button>
+    </div>
+
+    <div class="blog">
+        <h2>Blog</h2>
+        <div class="blog-item">Update: We have added new features to your virtual pet experience!</div>
+        <div class="blog-item">Thought: How to take care of your pet to keep it happy.</div>
+    </div>
+
+    <div class="resources">
+        <h2>Resource Hub</h2>
+        <div class="resource-item">Guide to feeding your pet.</div>
+        <div class="resource-item">Fun games to play with your pet.</div>
     </div>
 
     <script>
@@ -118,6 +180,18 @@
                 pet.happiness += 10;
                 if (pet.happiness > 100) pet.happiness = 100;
                 updatePetStatus();
+            }
+        }
+
+        function submitContactForm() {
+            const name = document.getElementById('contactName').value;
+            const message = document.getElementById('contactMessage').value;
+            if(name && message) {
+                alert("Thank you for your message, " + name + "!");
+                document.getElementById('contactName').value = '';
+                document.getElementById('contactMessage').value = '';
+            } else {
+                alert("Please fill out both fields.");
             }
         }
 
