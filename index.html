@@ -1,67 +1,50 @@
 <html>
 <head>
-    <title>Simple and Sleek Design</title>
+    <title>Discord Messaging Test</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #ffffff;
+            background-color: #f0f0f0;
             margin: 0;
-            padding: 0;
+            padding: 20px;
             color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         header {
-            width: 100%;
-            background-color: #2196f3;
+            background-color: #7289da;
             color: white;
-            padding: 20px 0;
+            padding: 15px;
             text-align: center;
+            border-radius: 5px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         h1 {
             margin: 0;
-            font-size: 2.5em;
-        }
-
-        nav {
-            margin: 20px 0;
-        }
-
-        nav a {
-            color: white;
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #ffeb3b;
+            font-size: 2em;
         }
 
         .container {
-            max-width: 800px;
-            margin: auto;
+            background-color: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            margin-top: 20px;
-            display: none;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: 20px auto;
         }
 
-        .section-title {
-            color: #2196f3;
-            font-size: 1.5em;
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             margin-bottom: 10px;
+            resize: none;
         }
 
         button {
-            background-color: #4caf50;
+            background-color: #43b581;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -72,53 +55,51 @@
         }
 
         button:hover {
-            background-color: #388e3c;
+            background-color: #3ba05e;
         }
 
-        #projects {
-            display: none;
+        #messageHistory {
+            margin-top: 20px;
+            max-height: 150px;
+            overflow-y: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .message {
+            margin: 5px 0;
+            padding: 5px;
+            border-left: 5px solid #7289da;
+            background-color: #e5e5e5;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Updates & Insights</h1>
-        <nav>
-            <a href="#" onclick="showSection('updates')">Updates</a>
-            <a href="#" onclick="showSection('insights')">Insights</a>
-            <a href="#" onclick="showSection('projects')">Projects</a>
-        </nav>
+        <h1>Discord Message Sender</h1>
     </header>
 
-    <div class="container" id="updates">
-        <h2 class="section-title">Latest Updates</h2>
-        <p>Stay tuned for the latest news and developments.</p>
-        <button onclick="showSection('insights')">View Insights</button>
-    </div>
-
-    <div class="container" id="insights">
-        <h2 class="section-title">Insights</h2>
-        <p>Here you will find valuable insights on various topics.</p>
-        <button onclick="showSection('projects')">View Projects</button>
-        <button onclick="showSection('updates')">Back to Updates</button>
-    </div>
-
-    <div class="container" id="projects">
-        <h2 class="section-title">Projects</h2>
-        <p>Explore our latest projects and initiatives.</p>
-        <button onclick="showSection('updates')">Back to Updates</button>
+    <div class="container">
+        <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+        <button onclick="sendMessage()">Send Message</button>
+        <div id="messageHistory"></div>
     </div>
 
     <script>
-        function showSection(section) {
-            document.getElementById('updates').style.display = 'none';
-            document.getElementById('insights').style.display = 'none';
-            document.getElementById('projects').style.display = 'none';
-            document.getElementById(section).style.display = 'block';
-        }
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const messageHistory = document.getElementById('messageHistory');
 
-        window.onload = function() {
-            showSection('updates');
+            if (messageInput.value.trim() !== '') {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                messageElement.textContent = messageInput.value;
+                messageHistory.appendChild(messageElement);
+                messageInput.value = '';
+                messageHistory.scrollTop = messageHistory.scrollHeight;
+            }
         }
     </script>
 </body>
