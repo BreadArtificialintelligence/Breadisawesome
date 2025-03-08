@@ -39,10 +39,9 @@
             height: 100px;
             background-color: #9c27b0;
             border-radius: 50%;
+            transition: transform 0.2s;
             display: inline-block;
             margin: 20px;
-            position: relative;
-            transition: transform 0.2s;
         }
 
         .pet:hover {
@@ -164,29 +163,30 @@
             if (petName) {
                 pet.name = petName;
                 updatePetStatus();
+                savePetData();
             }
         }
 
         function feedPet() {
             if (pet.hunger < 100) {
-                pet.hunger += 10;
-                if (pet.hunger > 100) pet.hunger = 100;
+                pet.hunger = Math.min(pet.hunger + 10, 100);
                 updatePetStatus();
+                savePetData();
             }
         }
 
         function playWithPet() {
             if (pet.happiness < 100) {
-                pet.happiness += 10;
-                if (pet.happiness > 100) pet.happiness = 100;
+                pet.happiness = Math.min(pet.happiness + 10, 100);
                 updatePetStatus();
+                savePetData();
             }
         }
-
+        
         function submitContactForm() {
             const name = document.getElementById('contactName').value;
             const message = document.getElementById('contactMessage').value;
-            if(name && message) {
+            if (name && message) {
                 alert("Thank you for your message, " + name + "!");
                 document.getElementById('contactName').value = '';
                 document.getElementById('contactMessage').value = '';
@@ -200,11 +200,26 @@
             document.getElementById('hungerStatus').textContent = "Hunger: " + pet.hunger;
             document.getElementById('happinessStatus').textContent = "Happiness: " + pet.happiness;
         }
-        
+
+        function savePetData() {
+            document.cookie = "petData=" + JSON.stringify(pet) + ";path=/;max-age=86400";
+        }
+
+        function loadPetData() {
+            const cookieData = document.cookie.split('; ').find(row => row.startsWith('petData='));
+            if (cookieData) {
+                pet = JSON.parse(cookieData.split('=')[1]);
+                updatePetStatus();
+            }
+        }
+
+        loadPetData();
+
         setInterval(() => {
             if (pet.hunger > 0) pet.hunger -= 1;
             if (pet.happiness > 0) pet.happiness -= 1;
             updatePetStatus();
+            savePetData();
         }, 10000);
     </script>
 </body>
