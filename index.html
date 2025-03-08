@@ -1,17 +1,17 @@
 <html>
 <head>
-    <title>Discord Messaging Test</title>
+    <title>Virtual Pet</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f0f0;
+            background-color: #eef;
             margin: 0;
             padding: 20px;
             color: #333;
         }
 
         header {
-            background-color: #7289da;
+            background-color: #6a1b9a;
             color: white;
             padding: 15px;
             text-align: center;
@@ -31,16 +31,22 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             margin: 20px auto;
+            text-align: center;
         }
 
-        textarea {
-            width: 100%;
+        .pet {
+            width: 100px;
             height: 100px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            resize: none;
+            background-color: #9c27b0;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 20px;
+            position: relative;
+            transition: transform 0.2s;
+        }
+
+        .pet:hover {
+            transform: scale(1.1);
         }
 
         button {
@@ -58,49 +64,74 @@
             background-color: #3ba05e;
         }
 
-        #messageHistory {
+        #petStatus {
             margin-top: 20px;
-            max-height: 150px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            background-color: #f9f9f9;
         }
 
-        .message {
+        .status {
             margin: 5px 0;
-            padding: 5px;
-            border-left: 5px solid #7289da;
-            background-color: #e5e5e5;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Discord Message Sender</h1>
+        <h1>Virtual Pet</h1>
     </header>
 
     <div class="container">
-        <textarea id="messageInput" placeholder="Type your message here..."></textarea>
-        <button onclick="sendMessage()">Send Message</button>
-        <div id="messageHistory"></div>
+        <div id="pet" class="pet"></div>
+        <div id="petStatus">
+            <div class="status" id="nameStatus">Name: No Name</div>
+            <div class="status" id="hungerStatus">Hunger: 100</div>
+            <div class="status" id="happinessStatus">Happiness: 100</div>
+        </div>
+        <button onclick="adoptPet()">Adopt Pet</button>
+        <button onclick="feedPet()">Feed Pet</button>
+        <button onclick="playWithPet()">Play with Pet</button>
     </div>
 
     <script>
-        function sendMessage() {
-            const messageInput = document.getElementById('messageInput');
-            const messageHistory = document.getElementById('messageHistory');
+        let pet = {
+            name: '',
+            hunger: 100,
+            happiness: 100
+        };
 
-            if (messageInput.value.trim() !== '') {
-                const messageElement = document.createElement('div');
-                messageElement.className = 'message';
-                messageElement.textContent = messageInput.value;
-                messageHistory.appendChild(messageElement);
-                messageInput.value = '';
-                messageHistory.scrollTop = messageHistory.scrollHeight;
+        function adoptPet() {
+            const petName = prompt("What will you name your pet?");
+            if (petName) {
+                pet.name = petName;
+                updatePetStatus();
             }
         }
+
+        function feedPet() {
+            if (pet.hunger < 100) {
+                pet.hunger += 10;
+                if (pet.hunger > 100) pet.hunger = 100;
+                updatePetStatus();
+            }
+        }
+
+        function playWithPet() {
+            if (pet.happiness < 100) {
+                pet.happiness += 10;
+                if (pet.happiness > 100) pet.happiness = 100;
+                updatePetStatus();
+            }
+        }
+
+        function updatePetStatus() {
+            document.getElementById('nameStatus').textContent = "Name: " + pet.name;
+            document.getElementById('hungerStatus').textContent = "Hunger: " + pet.hunger;
+            document.getElementById('happinessStatus').textContent = "Happiness: " + pet.happiness;
+        }
+        
+        setInterval(() => {
+            if (pet.hunger > 0) pet.hunger -= 1;
+            if (pet.happiness > 0) pet.happiness -= 1;
+            updatePetStatus();
+        }, 10000);
     </script>
 </body>
 </html>
