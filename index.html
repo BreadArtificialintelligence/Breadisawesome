@@ -1,62 +1,54 @@
 <html>
 <head>
-    <title>Bread Photo with Quotes</title>
+    <title>Thoughts and Project Ideas</title>
     <style>
         body {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
             margin: 0;
-            background-color: #ffecb3;
+            background-color: #f4f4f4;
             font-family: Arial, sans-serif;
         }
 
-        img {
-            max-width: 100%;
-            height: auto;
-            border: 5px solid #795548;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-
-        .quote-section {
-            background-color: #ffffff;
-            border-radius: 10px;
-            padding: 30px;
-            width: 80%;
-            max-width: 600px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .quote {
-            margin: 15px 0;
-            font-style: italic;
+        h1 {
             color: #333;
-            border-left: 4px solid #795548;
-            padding-left: 15px;
-            line-height: 1.6;
         }
 
-        .add-quote {
-            margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+        .container {
+            width: 80%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .thought-list, .project-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .thought, .project {
+            background-color: #e7f3fe;
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 5px solid #2196F3;
         }
 
         input[type="text"] {
+            width: calc(100% - 22px);
             padding: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-            border: 2px solid #795548;
+            margin: 10px 0;
+            border: 2px solid #2196F3;
             border-radius: 5px;
         }
 
         button {
             padding: 10px 15px;
-            background-color: #795548;
+            background-color: #2196F3;
             color: white;
             border: none;
             border-radius: 5px;
@@ -64,59 +56,103 @@
         }
 
         button:hover {
-            background-color: #4e3b30;
+            background-color: #1976D2;
         }
     </style>
 </head>
 <body>
-    <img src="https://via.placeholder.com/400?text=Bread" alt="Bread">
-    <div class="quote-section" id="quote-section">
-        <div class="quote">"Fresh bread is the best kind of bread."</div>
-        <div class="quote">"A loaf of bread is the start of a meal and a end of hunger."</div>
-        <div class="quote">"Bread: the staff of life."</div>
-        <div class="quote">"Good bread is the foundation of a good meal."</div>
-        <div class="quote">"Bread is the key to a happy heart."</div>
+    <h1>Regular Updates</h1>
+    <div class="container">
+        <h2>Thoughts & Conversations</h2>
+        <ul class="thought-list" id="thought-list">
+            <li class="thought">Initial thought about productivity hacks.</li>
+            <li class="thought">Discussion on the impact of technology in education.</li>
+        </ul>
+        <input type="text" id="thought-input" placeholder="Add your thought...">
+        <button onclick="addThought()">Add Thought</button>
     </div>
-    <div class="add-quote">
-        <input type="text" id="quote-input" placeholder="Add your quote here...">
-        <button onclick="addQuote()">Add Quote</button>
+
+    <div class="container">
+        <h2>Project Ideas</h2>
+        <ul class="project-list" id="project-list">
+            <li class="project">Build a personal blog site.</li>
+            <li class="project">Create a weather application using API.</li>
+        </ul>
+        <input type="text" id="project-input" placeholder="Add your project idea...">
+        <button onclick="addProject()">Add Project Idea</button>
     </div>
 
     <script>
-        function addQuote() {
-            const input = document.getElementById("quote-input");
-            const newQuote = input.value.trim();
-            if (newQuote) {
-                const quoteSection = document.getElementById("quote-section");
-                const quoteDiv = document.createElement("div");
-                quoteDiv.classList.add("quote");
-                quoteDiv.textContent = newQuote;
-                quoteSection.appendChild(quoteDiv);
+        function addThought() {
+            const input = document.getElementById("thought-input");
+            const newThought = input.value.trim();
+            if (newThought) {
+                const thoughtList = document.getElementById("thought-list");
+                const thoughtItem = document.createElement("li");
+                thoughtItem.classList.add("thought");
+                thoughtItem.textContent = newThought;
+                thoughtList.appendChild(thoughtItem);
                 input.value = '';
-                saveQuotes();
+                saveThoughts();
             }
         }
 
-        function saveQuotes() {
-            const quotes = Array.from(document.querySelectorAll('.quote')).map(quote => quote.textContent);
-            document.cookie = "quotes=" + JSON.stringify(quotes) + "; path=/";
+        function addProject() {
+            const input = document.getElementById("project-input");
+            const newProject = input.value.trim();
+            if (newProject) {
+                const projectList = document.getElementById("project-list");
+                const projectItem = document.createElement("li");
+                projectItem.classList.add("project");
+                projectItem.textContent = newProject;
+                projectList.appendChild(projectItem);
+                input.value = '';
+                saveProjects();
+            }
         }
 
-        function loadQuotes() {
-            const quotesCookie = document.cookie.split('; ').find(row => row.startsWith('quotes='));
-            if (quotesCookie) {
-                const quotes = JSON.parse(decodeURIComponent(quotesCookie.split('=')[1]));
-                quotes.forEach(quote => {
-                    const quoteSection = document.getElementById("quote-section");
-                    const quoteDiv = document.createElement("div");
-                    quoteDiv.classList.add("quote");
-                    quoteDiv.textContent = quote;
-                    quoteSection.appendChild(quoteDiv);
+        function saveThoughts() {
+            const thoughts = Array.from(document.querySelectorAll('.thought')).map(thought => thought.textContent);
+            document.cookie = "thoughts=" + JSON.stringify(thoughts) + "; path=/";
+        }
+
+        function saveProjects() {
+            const projects = Array.from(document.querySelectorAll('.project')).map(project => project.textContent);
+            document.cookie = "projects=" + JSON.stringify(projects) + "; path=/";
+        }
+
+        function loadThoughts() {
+            const thoughtsCookie = document.cookie.split('; ').find(row => row.startsWith('thoughts='));
+            if (thoughtsCookie) {
+                const thoughts = JSON.parse(decodeURIComponent(thoughtsCookie.split('=')[1]));
+                thoughts.forEach(thought => {
+                    const thoughtList = document.getElementById("thought-list");
+                    const thoughtItem = document.createElement("li");
+                    thoughtItem.classList.add("thought");
+                    thoughtItem.textContent = thought;
+                    thoughtList.appendChild(thoughtItem);
                 });
             }
         }
 
-        window.onload = loadQuotes;
+        function loadProjects() {
+            const projectsCookie = document.cookie.split('; ').find(row => row.startsWith('projects='));
+            if (projectsCookie) {
+                const projects = JSON.parse(decodeURIComponent(projectsCookie.split('=')[1]));
+                projects.forEach(project => {
+                    const projectList = document.getElementById("project-list");
+                    const projectItem = document.createElement("li");
+                    projectItem.classList.add("project");
+                    projectItem.textContent = project;
+                    projectList.appendChild(projectItem);
+                });
+            }
+        }
+
+        window.onload = function() {
+            loadThoughts();
+            loadProjects();
+        }
     </script>
 </body>
 </html>
