@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Green Innovations</title>
+    <title>AI Ethics and Robotics</title>
     <style>
         body {
             display: flex;
@@ -8,12 +8,12 @@
             justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #e0f7fa;
+            background-color: #f1f8e9;
             font-family: 'Arial', sans-serif;
         }
 
         h1 {
-            color: #00796b;
+            color: #388e3c;
         }
 
         .container {
@@ -26,29 +26,29 @@
             margin: 20px 0;
         }
 
-        .idea-list {
+        .ethics-list {
             list-style: none;
             padding: 0;
         }
 
-        .idea {
-            background-color: #b2dfdb;
+        .ethics {
+            background-color: #c8e6c9;
             margin: 10px 0;
             padding: 10px;
-            border-left: 5px solid #00796b;
+            border-left: 5px solid #388e3c;
         }
 
         input[type="text"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #00796b;
+            border: 2px solid #388e3c;
             border-radius: 5px;
         }
 
         button {
             padding: 10px 15px;
-            background-color: #00796b;
+            background-color: #388e3c;
             color: white;
             border: none;
             border-radius: 5px;
@@ -56,11 +56,11 @@
         }
 
         button:hover {
-            background-color: #004d40;
+            background-color: #2e7d32;
         }
 
         #delete-button {
-            background-color: #f44336;
+            background-color: #e53935;
         }
 
         #delete-button:hover {
@@ -69,56 +69,56 @@
     </style>
 </head>
 <body>
-    <h1>Eco-Friendly Ideas</h1>
+    <h1>AI Ethics Discussions</h1>
     <div class="container">
-        <h2>Innovative Concepts</h2>
-        <ul class="idea-list" id="idea-list"></ul>
-        <input type="text" id="idea-input" placeholder="Add your green idea...">
-        <button onclick="addIdea()">Submit Idea</button>
-        <button id="delete-button" onclick="clearIdeas()">Clear All Ideas</button>
+        <h2>Key Principles</h2>
+        <ul class="ethics-list" id="ethics-list"></ul>
+        <input type="text" id="ethics-input" placeholder="Share your thoughts...">
+        <button onclick="addEthics()">Submit Thought</button>
+        <button id="delete-button" onclick="clearEthics()">Clear All Thoughts</button>
     </div>
 
     <script>
-        function addIdea() {
-            const input = document.getElementById("idea-input");
-            const newIdea = input.value.trim();
-            if (newIdea) {
-                const ideaList = document.getElementById("idea-list");
-                const ideaItem = document.createElement("li");
-                ideaItem.classList.add("idea");
-                ideaItem.textContent = newIdea;
-                ideaList.appendChild(ideaItem);
+        function addEthics() {
+            const input = document.getElementById("ethics-input");
+            const newEthics = input.value.trim();
+            if (newEthics) {
+                const ethicsList = document.getElementById("ethics-list");
+                const ethicsItem = document.createElement("li");
+                ethicsItem.classList.add("ethics");
+                ethicsItem.textContent = newEthics;
+                ethicsList.appendChild(ethicsItem);
                 input.value = '';
-                saveIdeas();
+                saveEthics();
             }
         }
 
-        function saveIdeas() {
-            const ideas = Array.from(document.querySelectorAll('.idea')).map(idea => idea.textContent);
-            document.cookie = "ideas=" + JSON.stringify(ideas) + "; path=/";
+        function saveEthics() {
+            const ethics = Array.from(document.querySelectorAll('.ethics')).map(ethics => ethics.textContent);
+            document.cookie = "ethics=" + JSON.stringify(ethics) + "; path=/";
         }
 
-        function loadIdeas() {
-            const ideasCookie = document.cookie.split('; ').find(row => row.startsWith('ideas='));
-            if (ideasCookie) {
-                const ideas = JSON.parse(decodeURIComponent(ideasCookie.split('=')[1]));
-                ideas.forEach(idea => {
-                    const ideaList = document.getElementById("idea-list");
-                    const ideaItem = document.createElement("li");
-                    ideaItem.classList.add("idea");
-                    ideaItem.textContent = idea;
-                    ideaList.appendChild(ideaItem);
+        function loadEthics() {
+            const ethicsCookie = document.cookie.split('; ').find(row => row.startsWith('ethics='));
+            if (ethicsCookie) {
+                const ethics = JSON.parse(decodeURIComponent(ethicsCookie.split('=')[1]));
+                ethics.forEach(ethics => {
+                    const ethicsList = document.getElementById("ethics-list");
+                    const ethicsItem = document.createElement("li");
+                    ethicsItem.classList.add("ethics");
+                    ethicsItem.textContent = ethics;
+                    ethicsList.appendChild(ethicsItem);
                 });
             }
         }
 
-        function clearIdeas() {
-            document.getElementById("idea-list").innerHTML = '';
-            document.cookie = "ideas=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        function clearEthics() {
+            document.getElementById("ethics-list").innerHTML = '';
+            document.cookie = "ethics=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
         window.onload = function() {
-            loadIdeas();
+            loadEthics();
         }
     </script>
 </body>
