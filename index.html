@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Thoughts and Project Ideas</title>
+    <title>Green Innovations</title>
     <style>
         body {
             display: flex;
@@ -8,47 +8,47 @@
             justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
+            background-color: #e0f7fa;
+            font-family: 'Arial', sans-serif;
         }
 
         h1 {
-            color: #333;
+            color: #00796b;
         }
 
         .container {
-            width: 80%;
-            max-width: 800px;
-            background-color: white;
+            width: 90%;
+            max-width: 700px;
+            background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin: 20px 0;
         }
 
-        .thought-list, .project-list {
+        .idea-list {
             list-style: none;
             padding: 0;
         }
 
-        .thought, .project {
-            background-color: #e7f3fe;
+        .idea {
+            background-color: #b2dfdb;
             margin: 10px 0;
             padding: 10px;
-            border-left: 5px solid #2196F3;
+            border-left: 5px solid #00796b;
         }
 
         input[type="text"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #2196F3;
+            border: 2px solid #00796b;
             border-radius: 5px;
         }
 
         button {
             padding: 10px 15px;
-            background-color: #2196F3;
+            background-color: #00796b;
             color: white;
             border: none;
             border-radius: 5px;
@@ -56,102 +56,58 @@
         }
 
         button:hover {
-            background-color: #1976D2;
+            background-color: #004d40;
         }
     </style>
 </head>
 <body>
-    <h1>Regular Updates</h1>
+    <h1>Eco-Friendly Ideas</h1>
     <div class="container">
-        <h2>Thoughts & Insights</h2>
-        <ul class="thought-list" id="thought-list">
-            <li class="thought">Initial thought about productivity hacks.</li>
-            <li class="thought">Discussion on the impact of technology in education.</li>
+        <h2>Innovative Concepts</h2>
+        <ul class="idea-list" id="idea-list">
+            <li class="idea">Solar-powered community garden project.</li>
+            <li class="idea">Recycling workshop for local neighborhoods.</li>
         </ul>
-        <input type="text" id="thought-input" placeholder="Add your thought...">
-        <button onclick="addThought()">Add Thought</button>
-    </div>
-
-    <div class="container">
-        <h2>Project Ideas</h2>
-        <ul class="project-list" id="project-list">
-            <li class="project">Build a personal blog site.</li>
-            <li class="project">Create a weather application using API.</li>
-        </ul>
-        <input type="text" id="project-input" placeholder="Add your project idea...">
-        <button onclick="addProject()">Add Project Idea</button>
+        <input type="text" id="idea-input" placeholder="Add your green idea...">
+        <button onclick="addIdea()">Submit Idea</button>
     </div>
 
     <script>
-        function addThought() {
-            const input = document.getElementById("thought-input");
-            const newThought = input.value.trim();
-            if (newThought) {
-                const thoughtList = document.getElementById("thought-list");
-                const thoughtItem = document.createElement("li");
-                thoughtItem.classList.add("thought");
-                thoughtItem.textContent = newThought;
-                thoughtList.appendChild(thoughtItem);
+        function addIdea() {
+            const input = document.getElementById("idea-input");
+            const newIdea = input.value.trim();
+            if (newIdea) {
+                const ideaList = document.getElementById("idea-list");
+                const ideaItem = document.createElement("li");
+                ideaItem.classList.add("idea");
+                ideaItem.textContent = newIdea;
+                ideaList.appendChild(ideaItem);
                 input.value = '';
-                saveThoughts();
+                saveIdeas();
             }
         }
 
-        function addProject() {
-            const input = document.getElementById("project-input");
-            const newProject = input.value.trim();
-            if (newProject) {
-                const projectList = document.getElementById("project-list");
-                const projectItem = document.createElement("li");
-                projectItem.classList.add("project");
-                projectItem.textContent = newProject;
-                projectList.appendChild(projectItem);
-                input.value = '';
-                saveProjects();
-            }
+        function saveIdeas() {
+            const ideas = Array.from(document.querySelectorAll('.idea')).map(idea => idea.textContent);
+            document.cookie = "ideas=" + JSON.stringify(ideas) + "; path=/";
         }
 
-        function saveThoughts() {
-            const thoughts = Array.from(document.querySelectorAll('.thought')).map(thought => thought.textContent);
-            document.cookie = "thoughts=" + JSON.stringify(thoughts) + "; path=/";
-        }
-
-        function saveProjects() {
-            const projects = Array.from(document.querySelectorAll('.project')).map(project => project.textContent);
-            document.cookie = "projects=" + JSON.stringify(projects) + "; path=/";
-        }
-
-        function loadThoughts() {
-            const thoughtsCookie = document.cookie.split('; ').find(row => row.startsWith('thoughts='));
-            if (thoughtsCookie) {
-                const thoughts = JSON.parse(decodeURIComponent(thoughtsCookie.split('=')[1]));
-                thoughts.forEach(thought => {
-                    const thoughtList = document.getElementById("thought-list");
-                    const thoughtItem = document.createElement("li");
-                    thoughtItem.classList.add("thought");
-                    thoughtItem.textContent = thought;
-                    thoughtList.appendChild(thoughtItem);
-                });
-            }
-        }
-
-        function loadProjects() {
-            const projectsCookie = document.cookie.split('; ').find(row => row.startsWith('projects='));
-            if (projectsCookie) {
-                const projects = JSON.parse(decodeURIComponent(projectsCookie.split('=')[1]));
-                projects.forEach(project => {
-                    const projectList = document.getElementById("project-list");
-                    const projectItem = document.createElement("li");
-                    projectItem.classList.add("project");
-                    projectItem.textContent = project;
-                    projectList.appendChild(projectItem);
+        function loadIdeas() {
+            const ideasCookie = document.cookie.split('; ').find(row => row.startsWith('ideas='));
+            if (ideasCookie) {
+                const ideas = JSON.parse(decodeURIComponent(ideasCookie.split('=')[1]));
+                ideas.forEach(idea => {
+                    const ideaList = document.getElementById("idea-list");
+                    const ideaItem = document.createElement("li");
+                    ideaItem.classList.add("idea");
+                    ideaItem.textContent = idea;
+                    ideaList.appendChild(ideaItem);
                 });
             }
         }
 
         window.onload = function() {
-            loadThoughts();
-            loadProjects();
+            loadIdeas();
         }
     </script>
 </body>
