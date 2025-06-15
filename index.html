@@ -58,18 +58,24 @@
         button:hover {
             background-color: #004d40;
         }
+
+        #delete-button {
+            background-color: #f44336;
+        }
+
+        #delete-button:hover {
+            background-color: #c62828;
+        }
     </style>
 </head>
 <body>
     <h1>Eco-Friendly Ideas</h1>
     <div class="container">
         <h2>Innovative Concepts</h2>
-        <ul class="idea-list" id="idea-list">
-            <li class="idea">Solar-powered community garden project.</li>
-            <li class="idea">Recycling workshop for local neighborhoods.</li>
-        </ul>
+        <ul class="idea-list" id="idea-list"></ul>
         <input type="text" id="idea-input" placeholder="Add your green idea...">
         <button onclick="addIdea()">Submit Idea</button>
+        <button id="delete-button" onclick="clearIdeas()">Clear All Ideas</button>
     </div>
 
     <script>
@@ -104,6 +110,11 @@
                     ideaList.appendChild(ideaItem);
                 });
             }
+        }
+
+        function clearIdeas() {
+            document.getElementById("idea-list").innerHTML = '';
+            document.cookie = "ideas=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
         window.onload = function() {
