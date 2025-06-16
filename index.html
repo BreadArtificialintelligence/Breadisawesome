@@ -1,116 +1,108 @@
 <html>
 <head>
-    <title>Bread Recipe Exchange</title>
+    <title>Baking Community</title>
     <style>
         body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            background-color: #faf3e0;
-            font-family: 'Verdana', sans-serif;
+            padding: 20px;
         }
         h1 {
-            color: #c69c6d;
-            margin-top: 20px;
-        }
-        .container {
-            width: 90%;
-            max-width: 600px;
-            background-color: #ffffff;
-            border-radius: 15px;
-            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
-            padding: 30px;
-        }
-        h2 {
-            color: #9c6e57;
-        }
-        .art-list {
-            list-style: none;
-            padding: 0;
+            color: #8d6e63;
             margin: 20px 0;
         }
-        .art {
-            background-color: #fde0c4;
-            margin: 15px 0;
-            padding: 15px;
-            border-left: 6px solid #c69c6d;
-            position: relative;
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            display: flex;
+            flex-direction: column;
         }
         input[type="text"], input[type="url"], select {
-            width: 100%;
-            padding: 12px;
-            margin: 12px 0;
-            border: 2px solid #c69c6d;
-            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #8d6e63;
+            border-radius: 5px;
         }
         button {
-            padding: 10px 20px;
-            background-color: #c69c6d;
-            color: #ffffff;
+            background-color: #8d6e63;
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
+            padding: 10px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #a67c5e;
+            background-color: #7a5c4f;
         }
-        .edit-button, .delete-button, .comment-button {
+        .recipe-list {
+            margin-top: 20px;
+            width: 100%;
+        }
+        .recipe-item {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            position: relative;
+            border-left: 5px solid #8d6e63;
+        }
+        .buttons {
             position: absolute;
-            right: 15px;
-            top: 15px;
-            background: none;
-            border: none;
-            color: #5d4037;
-            cursor: pointer;
-        }
-        .delete-button {
-            color: #d32f2f;
+            right: 10px;
+            top: 10px;
         }
         .comment-section {
             display: none;
             margin-top: 10px;
-            background-color: #ffe0b2;
+            background: #ffebee;
+            border-radius: 5px;
             padding: 10px;
-            border-radius: 8px;
         }
         .comment-input {
-            padding: 10px;
             width: 100%;
-            border: 2px solid #c69c6d;
-            border-radius: 8px;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #8d6e63;
+            border-radius: 5px;
         }
-        .comment-list {
+        .comments {
             list-style: none;
             padding: 0;
+            margin: 5px 0 0 0;
         }
         .comment {
-            background-color: #ffffff;
-            margin: 5px 0;
+            background: #fff;
             padding: 8px;
-            border: 1px solid #c69c6d;
             border-radius: 5px;
+            margin: 4px 0;
+            border: 1px solid #8d6e63;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to Bread Lovers' Hub!</h1>
-    <div class="container">
-        <h2>Submit Your Best Bread Recipes</h2>
-        <input type="text" id="recipe-title" placeholder="Enter Recipe Title">
-        <input type="url" id="recipe-url" placeholder="Enter Recipe URL">
+    <h1>Baking Community</h1>
+    <div class="form-container">
+        <input type="text" id="recipe-title" placeholder="Recipe Title">
+        <input type="url" id="recipe-url" placeholder="Recipe URL">
         <select id="recipe-category">
-            <option value="">Select Category</option>
+            <option value="">Choose Category</option>
             <option value="sourdough">Sourdough</option>
-            <option value="white">White Bread</option>
             <option value="wholewheat">Whole Wheat</option>
             <option value="glutenfree">Gluten Free</option>
+            <option value="pastry">Pastry</option>
         </select>
         <button onclick="addRecipe()">Add Recipe</button>
-        <button onclick="resetRecipes()">Reset All Recipes</button>
-        <ul class="art-list" id="recipe-list"></ul>
+        <button onclick="resetRecipes()">Clear All Recipes</button>
     </div>
+    <ul class="recipe-list" id="recipe-list"></ul>
 
     <script>
         document.addEventListener('DOMContentLoaded', loadRecipes);
@@ -121,55 +113,58 @@
             const category = document.getElementById("recipe-category").value;
 
             if (title && url && category) {
-                const recipeItem = createRecipeElement(title, url, category);
-                document.getElementById("recipe-list").appendChild(recipeItem);
+                const recipeElement = createRecipeElement(title, url, category);
+                document.getElementById("recipe-list").appendChild(recipeElement);
                 storeRecipes();
-                clearFields();
+                clearInputs();
             }
         }
 
         function createRecipeElement(title, url, category) {
             const recipeItem = document.createElement("li");
-            recipeItem.classList.add("art");
+            recipeItem.className = "recipe-item";
             recipeItem.innerHTML = `
                 <a href="${url}" target="_blank">${title}</a> (${category})
-                <button class="edit-button" onclick="editRecipe(this)">Edit</button>
-                <button class="delete-button" onclick="deleteRecipe(this)">Delete</button>
-                <button class="comment-button" onclick="toggleComments(this)">Comments</button>
+                <div class="buttons">
+                    <button onclick="editRecipe(this)">Edit</button>
+                    <button onclick="deleteRecipe(this)">Delete</button>
+                    <button onclick="toggleComments(this)">Comments</button>
+                </div>
                 <div class="comment-section">
-                    <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
-                    <ul class="comment-list"></ul>
-                </div>`;
+                    <input type="text" class="comment-input" placeholder="Add Comment" onkeypress="if(event.key === 'Enter') addComment(this)">
+                    <ul class="comments"></ul>
+                </div>
+            `;
             return recipeItem;
         }
 
-        function clearFields() {
+        function clearInputs() {
             document.getElementById("recipe-title").value = '';
             document.getElementById("recipe-url").value = '';
             document.getElementById("recipe-category").value = '';
         }
 
         function storeRecipes() {
-            const recipes = Array.from(document.querySelectorAll('.art')).map(recipe => ({
-                title: recipe.querySelector('a').textContent,
-                url: recipe.querySelector('a').href,
-                category: recipe.childNodes[0].textContent.split("(")[1].split(")")[0],
-                comments: Array.from(recipe.querySelectorAll('.comment')).map(comment => comment.textContent)
+            const recipes = Array.from(document.querySelectorAll('.recipe-item')).map(item => ({
+                title: item.querySelector('a').textContent,
+                url: item.querySelector('a').href,
+                category: item.textContent.split('(')[1].split(')')[0],
+                comments: Array.from(item.querySelectorAll('.comment')).map(comment => comment.textContent)
             }));
             document.cookie = "recipes=" + JSON.stringify(recipes) + "; path=/";
         }
 
         function loadRecipes() {
-            const recipeCookie = document.cookie.split('; ').find(row => row.startsWith('recipes='));
-            if (recipeCookie) {
-                const recipes = JSON.parse(decodeURIComponent(recipeCookie.split('=')[1]));
-                recipes.forEach(recipe => {
-                    const recipeItem = createRecipeElement(recipe.title, recipe.url, recipe.category);
-                    recipe.comments.forEach(comment => {
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('recipes='));
+            if (cookie) {
+                const recipes = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+                recipes.forEach(({ title, url, category, comments }) => {
+                    const recipeItem = createRecipeElement(title, url, category);
+                    comments.forEach(comment => {
                         const commentLi = document.createElement('li');
                         commentLi.className = 'comment';
                         commentLi.textContent = comment;
-                        recipeItem.querySelector('.comment-list').appendChild(commentLi);
+                        recipeItem.querySelector('.comments').appendChild(commentLi);
                     });
                     document.getElementById("recipe-list").appendChild(recipeItem);
                 });
@@ -182,36 +177,35 @@
         }
 
         function editRecipe(button) {
-            const recipeItem = button.parentNode;
+            const recipeItem = button.closest('.recipe-item');
             document.getElementById("recipe-title").value = recipeItem.querySelector('a').textContent;
             document.getElementById("recipe-url").value = recipeItem.querySelector('a').href;
-            document.getElementById("recipe-category").value = recipeItem.textContent.split("(")[1].split(")")[0];
+            document.getElementById("recipe-category").value = recipeItem.textContent.split('(')[1].split(')')[0];
             deleteRecipe(button);
         }
 
         function deleteRecipe(button) {
-            const recipeItem = button.parentNode;
+            const recipeItem = button.closest('.recipe-item');
             recipeItem.remove();
             storeRecipes();
         }
 
         function addComment(input) {
-            const recipeItem = input.closest('.art');
+            const recipeItem = input.closest('.recipe-item');
             const commentText = input.value.trim();
             if (commentText) {
-                const commentList = recipeItem.querySelector('.comment-list');
                 const commentLi = document.createElement('li');
                 commentLi.className = 'comment';
                 commentLi.textContent = commentText;
-                commentList.appendChild(commentLi);
-                input.value = '';
+                recipeItem.querySelector('.comments').appendChild(commentLi);
                 storeRecipes();
+                input.value = '';
             }
         }
 
         function toggleComments(button) {
-            const commentSection = button.nextElementSibling;
-            commentSection.style.display = commentSection.style.display === 'none' || commentSection.style.display === '' ? 'block' : 'none';
+            const commentSection = button.closest('.recipe-item').querySelector('.comment-section');
+            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>
