@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Furry Community Hub</title>
+    <title>Bread Lovers Community Hub</title>
     <style>
         body {
             display: flex;
@@ -8,11 +8,11 @@
             justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #e0f7fa;
+            background-color: #fff3e0;
             font-family: 'Arial', sans-serif;
         }
         h1 {
-            color: #00796b;
+            color: #8d6e63;
         }
         .container {
             width: 90%;
@@ -21,10 +21,9 @@
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            margin: 20px 0;
         }
         h2 {
-            color: #00695c;
+            color: #6d4c41;
             margin-bottom: 10px;
         }
         .art-list {
@@ -32,29 +31,29 @@
             padding: 0;
         }
         .art {
-            background-color: #b2dfdb;
+            background-color: #ffccbc;
             margin: 10px 0;
             padding: 10px;
-            border-left: 5px solid #00796b;
+            border-left: 5px solid #8d6e63;
             position: relative;
         }
         input[type="text"], input[type="url"], select {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #00796b;
+            border: 2px solid #8d6e63;
             border-radius: 5px;
         }
         button {
             padding: 10px 15px;
-            background-color: #00796b;
+            background-color: #8d6e63;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #004d40;
+            background-color: #6d4c41;
         }
         #delete-button {
             background-color: #e53935;
@@ -71,7 +70,7 @@
             cursor: pointer;
         }
         .edit-button {
-            color: #007bff;
+            color: #263238;
         }
         .delete-button {
             color: #e53935;
@@ -79,7 +78,7 @@
         .comment-section {
             margin-top: 10px;
             display: none;
-            background-color: #e0f2f1;
+            background-color: #ffe0b2;
             padding: 10px;
             border-radius: 5px;
         }
@@ -91,7 +90,7 @@
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #00796b;
+            border: 2px solid #8d6e63;
             border-radius: 5px;
         }
         .comment-list {
@@ -102,130 +101,130 @@
             background-color: #ffffff;
             margin: 5px 0;
             padding: 8px;
-            border: 1px solid #00796b;
+            border: 1px solid #8d6e63;
             border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Furry Art Gallery</h1>
+    <h1>Bread Recipe Gallery</h1>
     <div class="container">
-        <h2>Share Your Artwork</h2>
+        <h2>Share Your Favorite Bread Recipes</h2>
         <div class="form-field">
-            <input type="text" id="art-title" placeholder="Artwork Title">
-            <input type="url" id="art-url" placeholder="Artwork URL">
-            <select id="art-category">
+            <input type="text" id="recipe-title" placeholder="Recipe Title">
+            <input type="url" id="recipe-url" placeholder="Recipe URL">
+            <select id="recipe-category">
                 <option value="">Select Category</option>
-                <option value="drawing">Drawing</option>
-                <option value="painting">Painting</option>
-                <option value="digital">Digital Art</option>
-                <option value="sculpture">Sculpture</option>
+                <option value="sourdough">Sourdough</option>
+                <option value="white">White Bread</option>
+                <option value="wholewheat">Whole Wheat</option>
+                <option value="glutenfree">Gluten Free</option>
             </select>
-            <button onclick="addArt()">Submit Artwork</button>
-            <button id="delete-button" onclick="clearArt()">Clear All Art</button>
+            <button onclick="addRecipe()">Submit Recipe</button>
+            <button id="delete-button" onclick="clearRecipes()">Clear All Recipes</button>
         </div>
-        <ul class="art-list" id="art-list"></ul>
+        <ul class="art-list" id="recipe-list"></ul>
     </div>
 
     <script>
-        function addArt() {
-            const title = document.getElementById("art-title").value.trim();
-            const url = document.getElementById("art-url").value.trim();
-            const category = document.getElementById("art-category").value;
+        function addRecipe() {
+            const title = document.getElementById("recipe-title").value.trim();
+            const url = document.getElementById("recipe-url").value.trim();
+            const category = document.getElementById("recipe-category").value;
             if (title && url && category) {
-                const artList = document.getElementById("art-list");
-                const artItem = document.createElement("li");
-                artItem.classList.add("art");
-                artItem.innerHTML = `<a href="${url}" target="_blank">${title}</a> (${category})
-                    <button class="edit-button" onclick='editArt(this)'>Edit</button>
-                    <button class="delete-button" onclick='deleteArt(this)'>Delete</button>
-                    <button class="comment-button" onclick='toggleComments(this)">Comments</button>
+                const recipeList = document.getElementById("recipe-list");
+                const recipeItem = document.createElement("li");
+                recipeItem.classList.add("art");
+                recipeItem.innerHTML = `<a href="${url}" target="_blank">${title}</a> (${category})
+                    <button class="edit-button" onclick='editRecipe(this)'>Edit</button>
+                    <button class="delete-button" onclick='deleteRecipe(this)'>Delete</button>
+                    <button class="comment-button" onclick='toggleComments(this)'>Comments</button>
                     <div class="comment-section">
                         <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
                         <ul class="comment-list"></ul>
                     </div>`;
-                artList.appendChild(artItem);
+                recipeList.appendChild(recipeItem);
                 clearFields();
-                saveArt();
+                saveRecipes();
             }
         }
 
         function clearFields() {
-            document.getElementById("art-title").value = '';
-            document.getElementById("art-url").value = '';
-            document.getElementById("art-category").value = '';
+            document.getElementById("recipe-title").value = '';
+            document.getElementById("recipe-url").value = '';
+            document.getElementById("recipe-category").value = '';
         }
 
-        function saveArt() {
-            const art = Array.from(document.querySelectorAll('.art')).map(art => ({
-                title: art.querySelector('a').textContent,
-                url: art.querySelector('a').href,
-                category: art.childNodes[0].textContent.split("(")[1].split(")")[0],
-                comments: Array.from(art.querySelectorAll('.comment')).map(comment => comment.textContent)
+        function saveRecipes() {
+            const recipes = Array.from(document.querySelectorAll('.art')).map(recipe => ({
+                title: recipe.querySelector('a').textContent,
+                url: recipe.querySelector('a').href,
+                category: recipe.childNodes[0].textContent.split("(")[1].split(")")[0],
+                comments: Array.from(recipe.querySelectorAll('.comment')).map(comment => comment.textContent)
             }));
-            document.cookie = "artwork=" + JSON.stringify(art) + "; path=/";
+            document.cookie = "recipes=" + JSON.stringify(recipes) + "; path=/";
         }
 
-        function loadArt() {
-            const artCookie = document.cookie.split('; ').find(row => row.startsWith('artwork='));
-            if (artCookie) {
-                const art = JSON.parse(decodeURIComponent(artCookie.split('=')[1]));
-                art.forEach(art => {
-                    const artList = document.getElementById("art-list");
-                    const artItem = document.createElement("li");
-                    artItem.classList.add("art");
-                    artItem.innerHTML = `<a href="${art.url}" target="_blank">${art.title}</a> (${art.category})
-                        <button class="edit-button" onclick='editArt(this)'>Edit</button>
-                        <button class="delete-button" onclick='deleteArt(this)'>Delete</button>
+        function loadRecipes() {
+            const recipeCookie = document.cookie.split('; ').find(row => row.startsWith('recipes='));
+            if (recipeCookie) {
+                const recipes = JSON.parse(decodeURIComponent(recipeCookie.split('=')[1]));
+                recipes.forEach(recipe => {
+                    const recipeList = document.getElementById("recipe-list");
+                    const recipeItem = document.createElement("li");
+                    recipeItem.classList.add("art");
+                    recipeItem.innerHTML = `<a href="${recipe.url}" target="_blank">${recipe.title}</a> (${recipe.category})
+                        <button class="edit-button" onclick='editRecipe(this)'>Edit</button>
+                        <button class="delete-button" onclick='deleteRecipe(this)'>Delete</button>
                         <button class="comment-button" onclick='toggleComments(this)'>Comments</button>
                         <div class="comment-section">
                             <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
                             <ul class="comment-list"></ul>
                         </div>`;
-                    art.comments.forEach(comment => {
+                    recipe.comments.forEach(comment => {
                         const commentLi = document.createElement('li');
                         commentLi.className = 'comment';
                         commentLi.textContent = comment;
-                        artItem.querySelector('.comment-list').appendChild(commentLi);
+                        recipeItem.querySelector('.comment-list').appendChild(commentLi);
                     });
-                    artList.appendChild(artItem);
+                    recipeList.appendChild(recipeItem);
                 });
             }
         }
 
-        function clearArt() {
-            document.getElementById("art-list").innerHTML = '';
-            document.cookie = "artwork=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        function clearRecipes() {
+            document.getElementById("recipe-list").innerHTML = '';
+            document.cookie = "recipes=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
-        function editArt(button) {
-            const artItem = button.parentNode;
-            const title = artItem.querySelector('a').textContent;
-            const url = artItem.querySelector('a').href;
-            const category = artItem.childNodes[0].textContent.split("(")[1].split(")")[0];
-            document.getElementById("art-title").value = title;
-            document.getElementById("art-url").value = url;
-            document.getElementById("art-category").value = category;
-            deleteArt(button);
+        function editRecipe(button) {
+            const recipeItem = button.parentNode;
+            const title = recipeItem.querySelector('a').textContent;
+            const url = recipeItem.querySelector('a').href;
+            const category = recipeItem.childNodes[0].textContent.split("(")[1].split(")")[0];
+            document.getElementById("recipe-title").value = title;
+            document.getElementById("recipe-url").value = url;
+            document.getElementById("recipe-category").value = category;
+            deleteRecipe(button);
         }
 
-        function deleteArt(button) {
-            const artItem = button.parentNode;
-            artItem.remove();
-            saveArt();
+        function deleteRecipe(button) {
+            const recipeItem = button.parentNode;
+            recipeItem.remove();
+            saveRecipes();
         }
 
         function addComment(input) {
-            const artItem = input.closest('.art');
+            const recipeItem = input.closest('.art');
             const commentText = input.value.trim();
             if (commentText) {
-                const commentList = artItem.querySelector('.comment-list');
+                const commentList = recipeItem.querySelector('.comment-list');
                 const commentLi = document.createElement('li');
                 commentLi.className = 'comment';
                 commentLi.textContent = commentText;
                 commentList.appendChild(commentLi);
                 input.value = '';
-                saveArt();
+                saveRecipes();
             }
         }
 
@@ -235,7 +234,7 @@
         }
 
         window.onload = function() {
-            loadArt();
+            loadRecipes();
         }
     </script>
 </body>
