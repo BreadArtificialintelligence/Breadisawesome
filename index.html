@@ -12,7 +12,7 @@
             font-family: 'Arial', sans-serif;
         }
         h1 {
-            color: #00695c;
+            color: #00796b;
         }
         .container {
             width: 90%;
@@ -23,6 +23,10 @@
             padding: 20px;
             margin: 20px 0;
         }
+        h2 {
+            color: #00695c;
+            margin-bottom: 10px;
+        }
         .art-list {
             list-style: none;
             padding: 0;
@@ -31,26 +35,26 @@
             background-color: #b2dfdb;
             margin: 10px 0;
             padding: 10px;
-            border-left: 5px solid #004d40;
+            border-left: 5px solid #00796b;
             position: relative;
         }
         input[type="text"], input[type="url"], select {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #004d40;
+            border: 2px solid #00796b;
             border-radius: 5px;
         }
         button {
             padding: 10px 15px;
-            background-color: #004d40;
+            background-color: #00796b;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #00332c;
+            background-color: #004d40;
         }
         #delete-button {
             background-color: #e53935;
@@ -58,7 +62,7 @@
         #delete-button:hover {
             background-color: #c62828;
         }
-        .edit-button, .delete-button {
+        .edit-button, .delete-button, .comment-button {
             position: absolute;
             right: 10px;
             top: 10px;
@@ -72,9 +76,34 @@
         .delete-button {
             color: #e53935;
         }
+        .comment-section {
+            margin-top: 10px;
+            display: none;
+            background-color: #e0f2f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
         .form-field {
             display: flex;
             flex-direction: column;
+        }
+        .comment-input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #00796b;
+            border-radius: 5px;
+        }
+        .comment-list {
+            list-style: none;
+            padding: 0;
+        }
+        .comment {
+            background-color: #ffffff;
+            margin: 5px 0;
+            padding: 8px;
+            border: 1px solid #00796b;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -109,7 +138,12 @@
                 artItem.classList.add("art");
                 artItem.innerHTML = `<a href="${url}" target="_blank">${title}</a> (${category})
                     <button class="edit-button" onclick='editArt(this)'>Edit</button>
-                    <button class="delete-button" onclick='deleteArt(this)'>Delete</button>`;
+                    <button class="delete-button" onclick='deleteArt(this)'>Delete</button>
+                    <button class="comment-button" onclick='toggleComments(this)">Comments</button>
+                    <div class="comment-section">
+                        <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
+                        <ul class="comment-list"></ul>
+                    </div>`;
                 artList.appendChild(artItem);
                 clearFields();
                 saveArt();
@@ -126,7 +160,8 @@
             const art = Array.from(document.querySelectorAll('.art')).map(art => ({
                 title: art.querySelector('a').textContent,
                 url: art.querySelector('a').href,
-                category: art.childNodes[0].textContent.split("(")[1].split(")")[0]
+                category: art.childNodes[0].textContent.split("(")[1].split(")")[0],
+                comments: Array.from(art.querySelectorAll('.comment')).map(comment => comment.textContent)
             }));
             document.cookie = "artwork=" + JSON.stringify(art) + "; path=/";
         }
@@ -141,7 +176,18 @@
                     artItem.classList.add("art");
                     artItem.innerHTML = `<a href="${art.url}" target="_blank">${art.title}</a> (${art.category})
                         <button class="edit-button" onclick='editArt(this)'>Edit</button>
-                        <button class="delete-button" onclick='deleteArt(this)'>Delete</button>`;
+                        <button class="delete-button" onclick='deleteArt(this)'>Delete</button>
+                        <button class="comment-button" onclick='toggleComments(this)'>Comments</button>
+                        <div class="comment-section">
+                            <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
+                            <ul class="comment-list"></ul>
+                        </div>`;
+                    art.comments.forEach(comment => {
+                        const commentLi = document.createElement('li');
+                        commentLi.className = 'comment';
+                        commentLi.textContent = comment;
+                        artItem.querySelector('.comment-list').appendChild(commentLi);
+                    });
                     artList.appendChild(artItem);
                 });
             }
@@ -167,6 +213,25 @@
             const artItem = button.parentNode;
             artItem.remove();
             saveArt();
+        }
+
+        function addComment(input) {
+            const artItem = input.closest('.art');
+            const commentText = input.value.trim();
+            if (commentText) {
+                const commentList = artItem.querySelector('.comment-list');
+                const commentLi = document.createElement('li');
+                commentLi.className = 'comment';
+                commentLi.textContent = commentText;
+                commentList.appendChild(commentLi);
+                input.value = '';
+                saveArt();
+            }
+        }
+
+        function toggleComments(button) {
+            const commentSection = button.nextElementSibling;
+            commentSection.style.display = commentSection.style.display === 'none' || commentSection.style.display === '' ? 'block' : 'none';
         }
 
         window.onload = function() {
