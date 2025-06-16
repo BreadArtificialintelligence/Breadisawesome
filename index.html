@@ -1,10 +1,11 @@
 <html>
 <head>
-    <title>Baking Community</title>
+    <title>Gaming Community</title>
     <style>
         body {
-            background-color: #fafafa;
-            font-family: 'Verdana', sans-serif;
+            background-color: #1a1a1a;
+            color: white;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -12,17 +13,17 @@
             padding: 20px;
         }
         h1 {
-            color: #d35400;
+            color: #ffcc00;
             margin: 20px 0;
             text-align: center;
         }
         .wrapper {
-            background: white;
+            background: #222;
             border-radius: 10px;
             padding: 20px;
             width: 80%;
             max-width: 600px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
         .form-group {
             margin: 10px 0;
@@ -30,12 +31,14 @@
         input[type="text"], input[type="url"], select {
             width: calc(100% - 22px);
             padding: 10px;
-            border: 1px solid #d35400;
+            border: 1px solid #ffcc00;
             border-radius: 5px;
+            background: #444;
+            color: white;
         }
         button {
-            background-color: #d35400;
-            color: white;
+            background-color: #ffcc00;
+            color: black;
             border: none;
             border-radius: 5px;
             padding: 10px;
@@ -44,177 +47,178 @@
             width: 100%;
         }
         button:hover {
-            background-color: #c0392b;
+            background-color: #e6b800;
         }
-        .recipe-list {
+        .game-list {
             margin-top: 20px;
         }
-        .recipe-item {
-            background-color: #fff;
+        .game-item {
+            background-color: #333;
             border-radius: 5px;
             padding: 15px;
             margin: 10px 0;
             position: relative;
-            border-left: 5px solid #d35400;
+            border-left: 5px solid #ffcc00;
         }
         .buttons {
             position: absolute;
             right: 10px;
             top: 10px;
         }
-        .comment-section {
+        .review-section {
             display: none;
             margin-top: 10px;
-            background: #f9cfcf;
+            background: #444;
             border-radius: 5px;
             padding: 10px;
         }
-        .comment-input {
+        .review-input {
             width: 100%;
             padding: 8px;
             margin-top: 5px;
-            border: 1px solid #d35400;
+            border: 1px solid #ffcc00;
             border-radius: 5px;
+            background: #555;
+            color: white;
         }
-        .comments {
+        .reviews {
             list-style: none;
             padding: 0;
             margin: 5px 0 0 0;
         }
-        .comment {
-            background: #fff;
+        .review {
+            background: #666;
             padding: 8px;
             border-radius: 5px;
             margin: 4px 0;
-            border: 1px solid #d35400;
+            border: 1px solid #ffcc00;
         }
     </style>
 </head>
 <body>
-    <h1>Baking Community</h1>
+    <h1>Gaming Community</h1>
     <div class="wrapper">
         <div class="form-group">
-            <input type="text" id="recipe-title" placeholder="Recipe Title" required>
+            <input type="text" id="game-title" placeholder="Game Title" required>
         </div>
         <div class="form-group">
-            <input type="url" id="recipe-url" placeholder="Recipe URL" required>
+            <input type="url" id="game-url" placeholder="Game URL" required>
         </div>
         <div class="form-group">
-            <select id="recipe-category" required>
-                <option value="">Choose Category</option>
-                <option value="sourdough">Sourdough</option>
-                <option value="wholewheat">Whole Wheat</option>
-                <option value="glutenfree">Gluten Free</option>
-                <option value="pastry">Pastry</option>
+            <select id="game-platform" required>
+                <option value="">Choose Platform</option>
+                <option value="pc">PC</option>
+                <option value="console">Console</option>
+                <option value="mobile">Mobile</option>
             </select>
         </div>
-        <button onclick="addRecipe()">Add Recipe</button>
-        <button onclick="resetRecipes()">Clear All Recipes</button>
-        <ul class="recipe-list" id="recipe-list"></ul>
+        <button onclick="addGame()">Add Game</button>
+        <button onclick="resetGames()">Clear All Games</button>
+        <ul class="game-list" id="game-list"></ul>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', loadRecipes);
+        document.addEventListener('DOMContentLoaded', loadGames);
 
-        function addRecipe() {
-            const title = document.getElementById("recipe-title").value.trim();
-            const url = document.getElementById("recipe-url").value.trim();
-            const category = document.getElementById("recipe-category").value;
+        function addGame() {
+            const title = document.getElementById("game-title").value.trim();
+            const url = document.getElementById("game-url").value.trim();
+            const platform = document.getElementById("game-platform").value;
 
-            if (title && url && category) {
-                const recipeElement = createRecipeElement(title, url, category);
-                document.getElementById("recipe-list").appendChild(recipeElement);
-                storeRecipes();
+            if (title && url && platform) {
+                const gameElement = createGameElement(title, url, platform);
+                document.getElementById("game-list").appendChild(gameElement);
+                storeGames();
                 clearInputs();
             }
         }
 
-        function createRecipeElement(title, url, category) {
-            const recipeItem = document.createElement("li");
-            recipeItem.className = "recipe-item";
-            recipeItem.innerHTML = `
-                <div>${title} (${category}) - <a href="${url}" target="_blank">View Recipe</a></div>
+        function createGameElement(title, url, platform) {
+            const gameItem = document.createElement("li");
+            gameItem.className = "game-item";
+            gameItem.innerHTML = `
+                <div>${title} (${platform}) - <a href="${url}" target="_blank">Play Now</a></div>
                 <div class="buttons">
-                    <button onclick="editRecipe(this)">Edit</button>
-                    <button onclick="deleteRecipe(this)">Delete</button>
-                    <button onclick="toggleComments(this)">Comments</button>
+                    <button onclick="editGame(this)">Edit</button>
+                    <button onclick="deleteGame(this)">Delete</button>
+                    <button onclick="toggleReviews(this)">Reviews</button>
                 </div>
-                <div class="comment-section">
-                    <input type="text" class="comment-input" placeholder="Add Comment" onkeypress="if(event.key === 'Enter') addComment(this)">
-                    <ul class="comments"></ul>
+                <div class="review-section">
+                    <input type="text" class="review-input" placeholder="Add Review" onkeypress="if(event.key === 'Enter') addReview(this)">
+                    <ul class="reviews"></ul>
                 </div>
             `;
-            return recipeItem;
+            return gameItem;
         }
 
         function clearInputs() {
-            document.getElementById("recipe-title").value = '';
-            document.getElementById("recipe-url").value = '';
-            document.getElementById("recipe-category").value = '';
+            document.getElementById("game-title").value = '';
+            document.getElementById("game-url").value = '';
+            document.getElementById("game-platform").value = '';
         }
 
-        function storeRecipes() {
-            const recipes = Array.from(document.querySelectorAll('.recipe-item')).map(item => ({
+        function storeGames() {
+            const games = Array.from(document.querySelectorAll('.game-item')).map(item => ({
                 title: item.querySelector('div').textContent.split(' - ')[0],
                 url: item.querySelector('a').href,
-                category: item.querySelector('div').textContent.split(' ')[1].slice(1, -1),
-                comments: Array.from(item.querySelectorAll('.comment')).map(comment => comment.textContent)
+                platform: item.querySelector('div').textContent.split(' ')[1].slice(1, -1),
+                reviews: Array.from(item.querySelectorAll('.review')).map(review => review.textContent)
             }));
-            document.cookie = "recipes=" + JSON.stringify(recipes) + "; path=/";
+            document.cookie = "games=" + JSON.stringify(games) + "; path=/";
         }
 
-        function loadRecipes() {
-            const cookie = document.cookie.split('; ').find(row => row.startsWith('recipes='));
+        function loadGames() {
+            const cookie = document.cookie.split('; ').find(row => row.startsWith('games='));
             if (cookie) {
-                const recipes = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-                recipes.forEach(({ title, url, category, comments }) => {
-                    const recipeItem = createRecipeElement(title, url, category);
-                    comments.forEach(comment => {
-                        const commentLi = document.createElement('li');
-                        commentLi.className = 'comment';
-                        commentLi.textContent = comment;
-                        recipeItem.querySelector('.comments').appendChild(commentLi);
+                const games = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
+                games.forEach(({ title, url, platform, reviews }) => {
+                    const gameItem = createGameElement(title, url, platform);
+                    reviews.forEach(review => {
+                        const reviewLi = document.createElement('li');
+                        reviewLi.className = 'review';
+                        reviewLi.textContent = review;
+                        gameItem.querySelector('.reviews').appendChild(reviewLi);
                     });
-                    document.getElementById("recipe-list").appendChild(recipeItem);
+                    document.getElementById("game-list").appendChild(gameItem);
                 });
             }
         }
 
-        function resetRecipes() {
-            document.getElementById("recipe-list").innerHTML = '';
-            document.cookie = "recipes=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        function resetGames() {
+            document.getElementById("game-list").innerHTML = '';
+            document.cookie = "games=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
-        function editRecipe(button) {
-            const recipeItem = button.closest('.recipe-item');
-            document.getElementById("recipe-title").value = recipeItem.querySelector('div').textContent.split(' - ')[0];
-            document.getElementById("recipe-url").value = recipeItem.querySelector('a').href;
-            document.getElementById("recipe-category").value = recipeItem.querySelector('div').textContent.split(' ')[1].slice(1, -1);
-            deleteRecipe(button);
+        function editGame(button) {
+            const gameItem = button.closest('.game-item');
+            document.getElementById("game-title").value = gameItem.querySelector('div').textContent.split(' - ')[0];
+            document.getElementById("game-url").value = gameItem.querySelector('a').href;
+            document.getElementById("game-platform").value = gameItem.querySelector('div').textContent.split(' ')[1].slice(1, -1);
+            deleteGame(button);
         }
 
-        function deleteRecipe(button) {
-            const recipeItem = button.closest('.recipe-item');
-            recipeItem.remove();
-            storeRecipes();
+        function deleteGame(button) {
+            const gameItem = button.closest('.game-item');
+            gameItem.remove();
+            storeGames();
         }
 
-        function addComment(input) {
-            const recipeItem = input.closest('.recipe-item');
-            const commentText = input.value.trim();
-            if (commentText) {
-                const commentLi = document.createElement('li');
-                commentLi.className = 'comment';
-                commentLi.textContent = commentText;
-                recipeItem.querySelector('.comments').appendChild(commentLi);
-                storeRecipes();
+        function addReview(input) {
+            const gameItem = input.closest('.game-item');
+            const reviewText = input.value.trim();
+            if (reviewText) {
+                const reviewLi = document.createElement('li');
+                reviewLi.className = 'review';
+                reviewLi.textContent = reviewText;
+                gameItem.querySelector('.reviews').appendChild(reviewLi);
+                storeGames();
                 input.value = '';
             }
         }
 
-        function toggleComments(button) {
-            const commentSection = button.closest('.recipe-item').querySelector('.comment-section');
-            commentSection.style.display = commentSection.style.display === 'none' ? 'block' : 'none';
+        function toggleReviews(button) {
+            const reviewSection = button.closest('.game-item').querySelector('.review-section');
+            reviewSection.style.display = reviewSection.style.display === 'none' ? 'block' : 'none';
         }
     </script>
 </body>
