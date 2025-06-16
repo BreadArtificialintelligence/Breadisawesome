@@ -1,97 +1,85 @@
 <html>
 <head>
-    <title>Bread Lovers Community Hub</title>
+    <title>Bread Recipe Exchange</title>
     <style>
         body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #fff3e0;
-            font-family: 'Arial', sans-serif;
+            background-color: #faf3e0;
+            font-family: 'Verdana', sans-serif;
         }
         h1 {
-            color: #8d6e63;
+            color: #c69c6d;
+            margin-top: 20px;
         }
         .container {
             width: 90%;
-            max-width: 800px;
+            max-width: 600px;
             background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px;
         }
         h2 {
-            color: #6d4c41;
-            margin-bottom: 10px;
+            color: #9c6e57;
         }
         .art-list {
             list-style: none;
             padding: 0;
+            margin: 20px 0;
         }
         .art {
-            background-color: #ffccbc;
-            margin: 10px 0;
-            padding: 10px;
-            border-left: 5px solid #8d6e63;
+            background-color: #fde0c4;
+            margin: 15px 0;
+            padding: 15px;
+            border-left: 6px solid #c69c6d;
             position: relative;
         }
         input[type="text"], input[type="url"], select {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #8d6e63;
-            border-radius: 5px;
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #c69c6d;
+            border-radius: 8px;
         }
         button {
-            padding: 10px 15px;
-            background-color: #8d6e63;
-            color: white;
+            padding: 10px 20px;
+            background-color: #c69c6d;
+            color: #ffffff;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background-color 0.3s;
         }
         button:hover {
-            background-color: #6d4c41;
-        }
-        #delete-button {
-            background-color: #e53935;
-        }
-        #delete-button:hover {
-            background-color: #c62828;
+            background-color: #a67c5e;
         }
         .edit-button, .delete-button, .comment-button {
             position: absolute;
-            right: 10px;
-            top: 10px;
+            right: 15px;
+            top: 15px;
             background: none;
             border: none;
+            color: #5d4037;
             cursor: pointer;
         }
-        .edit-button {
-            color: #263238;
-        }
         .delete-button {
-            color: #e53935;
+            color: #d32f2f;
         }
         .comment-section {
-            margin-top: 10px;
             display: none;
+            margin-top: 10px;
             background-color: #ffe0b2;
             padding: 10px;
-            border-radius: 5px;
-        }
-        .form-field {
-            display: flex;
-            flex-direction: column;
+            border-radius: 8px;
         }
         .comment-input {
-            width: calc(100% - 22px);
             padding: 10px;
-            margin: 10px 0;
-            border: 2px solid #8d6e63;
-            border-radius: 5px;
+            width: 100%;
+            border: 2px solid #c69c6d;
+            border-radius: 8px;
         }
         .comment-list {
             list-style: none;
@@ -101,52 +89,58 @@
             background-color: #ffffff;
             margin: 5px 0;
             padding: 8px;
-            border: 1px solid #8d6e63;
+            border: 1px solid #c69c6d;
             border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <h1>Bread Recipe Gallery</h1>
+    <h1>Welcome to Bread Lovers' Hub!</h1>
     <div class="container">
-        <h2>Share Your Favorite Bread Recipes</h2>
-        <div class="form-field">
-            <input type="text" id="recipe-title" placeholder="Recipe Title">
-            <input type="url" id="recipe-url" placeholder="Recipe URL">
-            <select id="recipe-category">
-                <option value="">Select Category</option>
-                <option value="sourdough">Sourdough</option>
-                <option value="white">White Bread</option>
-                <option value="wholewheat">Whole Wheat</option>
-                <option value="glutenfree">Gluten Free</option>
-            </select>
-            <button onclick="addRecipe()">Submit Recipe</button>
-            <button id="delete-button" onclick="clearRecipes()">Clear All Recipes</button>
-        </div>
+        <h2>Submit Your Best Bread Recipes</h2>
+        <input type="text" id="recipe-title" placeholder="Enter Recipe Title">
+        <input type="url" id="recipe-url" placeholder="Enter Recipe URL">
+        <select id="recipe-category">
+            <option value="">Select Category</option>
+            <option value="sourdough">Sourdough</option>
+            <option value="white">White Bread</option>
+            <option value="wholewheat">Whole Wheat</option>
+            <option value="glutenfree">Gluten Free</option>
+        </select>
+        <button onclick="addRecipe()">Add Recipe</button>
+        <button onclick="resetRecipes()">Reset All Recipes</button>
         <ul class="art-list" id="recipe-list"></ul>
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', loadRecipes);
+
         function addRecipe() {
             const title = document.getElementById("recipe-title").value.trim();
             const url = document.getElementById("recipe-url").value.trim();
             const category = document.getElementById("recipe-category").value;
+
             if (title && url && category) {
-                const recipeList = document.getElementById("recipe-list");
-                const recipeItem = document.createElement("li");
-                recipeItem.classList.add("art");
-                recipeItem.innerHTML = `<a href="${url}" target="_blank">${title}</a> (${category})
-                    <button class="edit-button" onclick='editRecipe(this)'>Edit</button>
-                    <button class="delete-button" onclick='deleteRecipe(this)'>Delete</button>
-                    <button class="comment-button" onclick='toggleComments(this)'>Comments</button>
-                    <div class="comment-section">
-                        <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
-                        <ul class="comment-list"></ul>
-                    </div>`;
-                recipeList.appendChild(recipeItem);
+                const recipeItem = createRecipeElement(title, url, category);
+                document.getElementById("recipe-list").appendChild(recipeItem);
+                storeRecipes();
                 clearFields();
-                saveRecipes();
             }
+        }
+
+        function createRecipeElement(title, url, category) {
+            const recipeItem = document.createElement("li");
+            recipeItem.classList.add("art");
+            recipeItem.innerHTML = `
+                <a href="${url}" target="_blank">${title}</a> (${category})
+                <button class="edit-button" onclick="editRecipe(this)">Edit</button>
+                <button class="delete-button" onclick="deleteRecipe(this)">Delete</button>
+                <button class="comment-button" onclick="toggleComments(this)">Comments</button>
+                <div class="comment-section">
+                    <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
+                    <ul class="comment-list"></ul>
+                </div>`;
+            return recipeItem;
         }
 
         function clearFields() {
@@ -155,7 +149,7 @@
             document.getElementById("recipe-category").value = '';
         }
 
-        function saveRecipes() {
+        function storeRecipes() {
             const recipes = Array.from(document.querySelectorAll('.art')).map(recipe => ({
                 title: recipe.querySelector('a').textContent,
                 url: recipe.querySelector('a').href,
@@ -170,48 +164,35 @@
             if (recipeCookie) {
                 const recipes = JSON.parse(decodeURIComponent(recipeCookie.split('=')[1]));
                 recipes.forEach(recipe => {
-                    const recipeList = document.getElementById("recipe-list");
-                    const recipeItem = document.createElement("li");
-                    recipeItem.classList.add("art");
-                    recipeItem.innerHTML = `<a href="${recipe.url}" target="_blank">${recipe.title}</a> (${recipe.category})
-                        <button class="edit-button" onclick='editRecipe(this)'>Edit</button>
-                        <button class="delete-button" onclick='deleteRecipe(this)'>Delete</button>
-                        <button class="comment-button" onclick='toggleComments(this)'>Comments</button>
-                        <div class="comment-section">
-                            <input type="text" class="comment-input" placeholder="Add a comment" onkeypress="if(event.key === 'Enter') addComment(this)">
-                            <ul class="comment-list"></ul>
-                        </div>`;
+                    const recipeItem = createRecipeElement(recipe.title, recipe.url, recipe.category);
                     recipe.comments.forEach(comment => {
                         const commentLi = document.createElement('li');
                         commentLi.className = 'comment';
                         commentLi.textContent = comment;
                         recipeItem.querySelector('.comment-list').appendChild(commentLi);
                     });
-                    recipeList.appendChild(recipeItem);
+                    document.getElementById("recipe-list").appendChild(recipeItem);
                 });
             }
         }
 
-        function clearRecipes() {
+        function resetRecipes() {
             document.getElementById("recipe-list").innerHTML = '';
             document.cookie = "recipes=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
         function editRecipe(button) {
             const recipeItem = button.parentNode;
-            const title = recipeItem.querySelector('a').textContent;
-            const url = recipeItem.querySelector('a').href;
-            const category = recipeItem.childNodes[0].textContent.split("(")[1].split(")")[0];
-            document.getElementById("recipe-title").value = title;
-            document.getElementById("recipe-url").value = url;
-            document.getElementById("recipe-category").value = category;
+            document.getElementById("recipe-title").value = recipeItem.querySelector('a').textContent;
+            document.getElementById("recipe-url").value = recipeItem.querySelector('a').href;
+            document.getElementById("recipe-category").value = recipeItem.textContent.split("(")[1].split(")")[0];
             deleteRecipe(button);
         }
 
         function deleteRecipe(button) {
             const recipeItem = button.parentNode;
             recipeItem.remove();
-            saveRecipes();
+            storeRecipes();
         }
 
         function addComment(input) {
@@ -224,17 +205,13 @@
                 commentLi.textContent = commentText;
                 commentList.appendChild(commentLi);
                 input.value = '';
-                saveRecipes();
+                storeRecipes();
             }
         }
 
         function toggleComments(button) {
             const commentSection = button.nextElementSibling;
             commentSection.style.display = commentSection.style.display === 'none' || commentSection.style.display === '' ? 'block' : 'none';
-        }
-
-        window.onload = function() {
-            loadRecipes();
         }
     </script>
 </body>
