@@ -32,8 +32,9 @@
             margin: 10px 0;
             padding: 10px;
             border-left: 5px solid #004d40;
+            position: relative;
         }
-        input[type="text"], input[type="url"] {
+        input[type="text"], input[type="url"], select {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
@@ -57,16 +58,43 @@
         #delete-button:hover {
             background-color: #c62828;
         }
+        .edit-button, .delete-button {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        .edit-button {
+            color: #007bff;
+        }
+        .delete-button {
+            color: #e53935;
+        }
+        .form-field {
+            display: flex;
+            flex-direction: column;
+        }
     </style>
 </head>
 <body>
     <h1>Furry Art Gallery</h1>
     <div class="container">
         <h2>Share Your Artwork</h2>
-        <input type="text" id="art-title" placeholder="Artwork Title">
-        <input type="url" id="art-url" placeholder="Artwork URL">
-        <button onclick="addArt()">Submit Artwork</button>
-        <button id="delete-button" onclick="clearArt()">Clear All Art</button>
+        <div class="form-field">
+            <input type="text" id="art-title" placeholder="Artwork Title">
+            <input type="url" id="art-url" placeholder="Artwork URL">
+            <select id="art-category">
+                <option value="">Select Category</option>
+                <option value="drawing">Drawing</option>
+                <option value="painting">Painting</option>
+                <option value="digital">Digital Art</option>
+                <option value="sculpture">Sculpture</option>
+            </select>
+            <button onclick="addArt()">Submit Artwork</button>
+            <button id="delete-button" onclick="clearArt()">Clear All Art</button>
+        </div>
         <ul class="art-list" id="art-list"></ul>
     </div>
 
@@ -74,20 +102,32 @@
         function addArt() {
             const title = document.getElementById("art-title").value.trim();
             const url = document.getElementById("art-url").value.trim();
-            if (title && url) {
+            const category = document.getElementById("art-category").value;
+            if (title && url && category) {
                 const artList = document.getElementById("art-list");
                 const artItem = document.createElement("li");
                 artItem.classList.add("art");
-                artItem.innerHTML = `<a href="${url}" target="_blank">${title}</a>`;
+                artItem.innerHTML = `<a href="${url}" target="_blank">${title}</a> (${category})
+                    <button class="edit-button" onclick='editArt(this)'>Edit</button>
+                    <button class="delete-button" onclick='deleteArt(this)'>Delete</button>`;
                 artList.appendChild(artItem);
-                document.getElementById("art-title").value = '';
-                document.getElementById("art-url").value = '';
+                clearFields();
                 saveArt();
             }
         }
 
+        function clearFields() {
+            document.getElementById("art-title").value = '';
+            document.getElementById("art-url").value = '';
+            document.getElementById("art-category").value = '';
+        }
+
         function saveArt() {
-            const art = Array.from(document.querySelectorAll('.art a')).map(art => ({ title: art.textContent, url: art.href }));
+            const art = Array.from(document.querySelectorAll('.art')).map(art => ({
+                title: art.querySelector('a').textContent,
+                url: art.querySelector('a').href,
+                category: art.childNodes[0].textContent.split("(")[1].split(")")[0]
+            }));
             document.cookie = "artwork=" + JSON.stringify(art) + "; path=/";
         }
 
@@ -99,7 +139,9 @@
                     const artList = document.getElementById("art-list");
                     const artItem = document.createElement("li");
                     artItem.classList.add("art");
-                    artItem.innerHTML = `<a href="${art.url}" target="_blank">${art.title}</a>`;
+                    artItem.innerHTML = `<a href="${art.url}" target="_blank">${art.title}</a> (${art.category})
+                        <button class="edit-button" onclick='editArt(this)'>Edit</button>
+                        <button class="delete-button" onclick='deleteArt(this)'>Delete</button>`;
                     artList.appendChild(artItem);
                 });
             }
@@ -108,6 +150,23 @@
         function clearArt() {
             document.getElementById("art-list").innerHTML = '';
             document.cookie = "artwork=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
+
+        function editArt(button) {
+            const artItem = button.parentNode;
+            const title = artItem.querySelector('a').textContent;
+            const url = artItem.querySelector('a').href;
+            const category = artItem.childNodes[0].textContent.split("(")[1].split(")")[0];
+            document.getElementById("art-title").value = title;
+            document.getElementById("art-url").value = url;
+            document.getElementById("art-category").value = category;
+            deleteArt(button);
+        }
+
+        function deleteArt(button) {
+            const artItem = button.parentNode;
+            artItem.remove();
+            saveArt();
         }
 
         window.onload = function() {
