@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>AI Ethics and Robotics</title>
+    <title>Furry Community Hub</title>
     <style>
         body {
             display: flex;
@@ -8,117 +8,110 @@
             justify-content: center;
             align-items: center;
             margin: 0;
-            background-color: #f1f8e9;
+            background-color: #e0f7fa;
             font-family: 'Arial', sans-serif;
         }
-
         h1 {
-            color: #388e3c;
+            color: #00695c;
         }
-
         .container {
             width: 90%;
-            max-width: 700px;
+            max-width: 800px;
             background-color: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin: 20px 0;
         }
-
-        .ethics-list {
+        .art-list {
             list-style: none;
             padding: 0;
         }
-
-        .ethics {
-            background-color: #c8e6c9;
+        .art {
+            background-color: #b2dfdb;
             margin: 10px 0;
             padding: 10px;
-            border-left: 5px solid #388e3c;
+            border-left: 5px solid #004d40;
         }
-
-        input[type="text"] {
+        input[type="text"], input[type="url"] {
             width: calc(100% - 22px);
             padding: 10px;
             margin: 10px 0;
-            border: 2px solid #388e3c;
+            border: 2px solid #004d40;
             border-radius: 5px;
         }
-
         button {
             padding: 10px 15px;
-            background-color: #388e3c;
+            background-color: #004d40;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-
         button:hover {
-            background-color: #2e7d32;
+            background-color: #00332c;
         }
-
         #delete-button {
             background-color: #e53935;
         }
-
         #delete-button:hover {
             background-color: #c62828;
         }
     </style>
 </head>
 <body>
-    <h1>AI Ethics Discussions</h1>
+    <h1>Furry Art Gallery</h1>
     <div class="container">
-        <h2>Key Principles</h2>
-        <ul class="ethics-list" id="ethics-list"></ul>
-        <input type="text" id="ethics-input" placeholder="Share your thoughts...">
-        <button onclick="addEthics()">Submit Thought</button>
-        <button id="delete-button" onclick="clearEthics()">Clear All Thoughts</button>
+        <h2>Share Your Artwork</h2>
+        <input type="text" id="art-title" placeholder="Artwork Title">
+        <input type="url" id="art-url" placeholder="Artwork URL">
+        <button onclick="addArt()">Submit Artwork</button>
+        <button id="delete-button" onclick="clearArt()">Clear All Art</button>
+        <ul class="art-list" id="art-list"></ul>
     </div>
 
     <script>
-        function addEthics() {
-            const input = document.getElementById("ethics-input");
-            const newEthics = input.value.trim();
-            if (newEthics) {
-                const ethicsList = document.getElementById("ethics-list");
-                const ethicsItem = document.createElement("li");
-                ethicsItem.classList.add("ethics");
-                ethicsItem.textContent = newEthics;
-                ethicsList.appendChild(ethicsItem);
-                input.value = '';
-                saveEthics();
+        function addArt() {
+            const title = document.getElementById("art-title").value.trim();
+            const url = document.getElementById("art-url").value.trim();
+            if (title && url) {
+                const artList = document.getElementById("art-list");
+                const artItem = document.createElement("li");
+                artItem.classList.add("art");
+                artItem.innerHTML = `<a href="${url}" target="_blank">${title}</a>`;
+                artList.appendChild(artItem);
+                document.getElementById("art-title").value = '';
+                document.getElementById("art-url").value = '';
+                saveArt();
             }
         }
 
-        function saveEthics() {
-            const ethics = Array.from(document.querySelectorAll('.ethics')).map(ethics => ethics.textContent);
-            document.cookie = "ethics=" + JSON.stringify(ethics) + "; path=/";
+        function saveArt() {
+            const art = Array.from(document.querySelectorAll('.art a')).map(art => ({ title: art.textContent, url: art.href }));
+            document.cookie = "artwork=" + JSON.stringify(art) + "; path=/";
         }
 
-        function loadEthics() {
-            const ethicsCookie = document.cookie.split('; ').find(row => row.startsWith('ethics='));
-            if (ethicsCookie) {
-                const ethics = JSON.parse(decodeURIComponent(ethicsCookie.split('=')[1]));
-                ethics.forEach(ethics => {
-                    const ethicsList = document.getElementById("ethics-list");
-                    const ethicsItem = document.createElement("li");
-                    ethicsItem.classList.add("ethics");
-                    ethicsItem.textContent = ethics;
-                    ethicsList.appendChild(ethicsItem);
+        function loadArt() {
+            const artCookie = document.cookie.split('; ').find(row => row.startsWith('artwork='));
+            if (artCookie) {
+                const art = JSON.parse(decodeURIComponent(artCookie.split('=')[1]));
+                art.forEach(art => {
+                    const artList = document.getElementById("art-list");
+                    const artItem = document.createElement("li");
+                    artItem.classList.add("art");
+                    artItem.innerHTML = `<a href="${art.url}" target="_blank">${art.title}</a>`;
+                    artList.appendChild(artItem);
                 });
             }
         }
 
-        function clearEthics() {
-            document.getElementById("ethics-list").innerHTML = '';
-            document.cookie = "ethics=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        function clearArt() {
+            document.getElementById("art-list").innerHTML = '';
+            document.cookie = "artwork=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
 
         window.onload = function() {
-            loadEthics();
+            loadArt();
         }
     </script>
 </body>
