@@ -1,10 +1,10 @@
 <html>
 <head>
-    <title>Gaming Central</title>
+    <title>Bread Central</title>
     <style>
         body {
-            background-color: #1b1b1b;
-            color: #ffffff;
+            background-color: #f5f5f5;
+            color: #333;
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
@@ -13,223 +13,39 @@
             align-items: center;
         }
         header {
-            background: #292929;
+            background: #ffcc00;
             width: 100%;
             padding: 20px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         header h1 {
-            color: #ffd700;
             margin: 0;
+            color: #6b4f4f;
         }
         .container {
-            background: #333;
+            background: #fff;
             border-radius: 10px;
             padding: 20px;
             margin: 20px;
             width: 90%;
-            max-width: 800px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
-        .form-group {
-            margin: 10px 0;
-        }
-        input, select {
-            width: calc(100% - 20px);
-            padding: 12px;
-            border: 1px solid #ffd700;
-            border-radius: 5px;
-            background: #444;
-            color: #ffffff;
-        }
-        button {
-            background-color: #ffd700;
-            color: black;
-            border: none;
-            border-radius: 5px;
-            padding: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            width: 100%;
-            margin: 5px 0;
-        }
-        button:hover {
-            background-color: #ffcc00;
-        }
-        .game-list {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-        }
-        .game-item {
-            background-color: #444;
-            border-radius: 5px;
-            padding: 15px;
-            margin: 10px 0;
-            position: relative;
-        }
-        .buttons {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-        }
-        .review-section {
-            display: none;
-            margin-top: 10px;
-            background: #555;
-            border-radius: 5px;
-            padding: 10px;
-        }
-        .review-input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ffd700;
-            border-radius: 5px;
-            background: #666;
-            color: white;
-        }
-        .reviews {
-            list-style: none;
-            padding: 0;
-            margin: 5px 0 0 0;
-        }
-        .review {
-            background: #777;
-            padding: 8px;
-            margin: 4px 0;
-            border-radius: 5px;
-            border: 1px solid #ffd700;
+        .empty-message {
+            text-align: center;
+            color: #888;
         }
     </style>
 </head>
 <body>
 <header>
-    <h1>Gaming Central</h1>
+    <h1>Bread Central</h1>
 </header>
 <div class="container">
-    <div class="form-group">
-        <input type="text" id="game-title" placeholder="Enter Game Title" required>
+    <div class="empty-message">
+        <p>No bread items available. Please add some!</p>
     </div>
-    <div class="form-group">
-        <input type="url" id="game-url" placeholder="Enter Game URL" required>
-    </div>
-    <div class="form-group">
-        <select id="game-platform" required>
-            <option value="">Select Platform</option>
-            <option value="PC">PC</option>
-            <option value="Console">Console</option>
-            <option value="Mobile">Mobile</option>
-        </select>
-    </div>
-    <button onclick="addGame()">Add Game</button>
-    <button onclick="clearGames()">Clear All</button>
-    <ul class="game-list" id="game-list"></ul>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', loadGames);
-
-    function addGame() {
-        const title = document.getElementById("game-title").value.trim();
-        const url = document.getElementById("game-url").value.trim();
-        const platform = document.getElementById("game-platform").value;
-
-        if (title && url && platform) {
-            const gameElement = createGameElement(title, url, platform);
-            document.getElementById("game-list").appendChild(gameElement);
-            storeGames();
-            clearInputs();
-        }
-    }
-
-    function createGameElement(title, url, platform) {
-        const gameItem = document.createElement("li");
-        gameItem.className = "game-item";
-        gameItem.innerHTML = `
-            <div>${title} (${platform}) - <a href="${url}" target="_blank" style="color: #ffd700;">Play Now</a></div>
-            <div class="buttons">
-                <button onclick="editGame(this)">Edit</button>
-                <button onclick="deleteGame(this)">Delete</button>
-                <button onclick="toggleReviews(this)">Reviews</button>
-            </div>
-            <div class="review-section">
-                <input type="text" class="review-input" placeholder="Add Review" onkeypress="if(event.key === 'Enter') addReview(this)">
-                <ul class="reviews"></ul>
-            </div>
-        `;
-        return gameItem;
-    }
-
-    function clearInputs() {
-        document.getElementById("game-title").value = '';
-        document.getElementById("game-url").value = '';
-        document.getElementById("game-platform").value = '';
-    }
-
-    function storeGames() {
-        const games = Array.from(document.querySelectorAll('.game-item')).map(item => ({
-            title: item.querySelector('div').textContent.split(' - ')[0],
-            url: item.querySelector('a').href,
-            platform: item.querySelector('div').textContent.split(' ')[1].slice(1, -1),
-            reviews: Array.from(item.querySelectorAll('.review')).map(review => review.textContent)
-        }));
-        document.cookie = "games=" + encodeURIComponent(JSON.stringify(games)) + "; path=/";
-    }
-
-    function loadGames() {
-        const cookie = document.cookie.split('; ').find(row => row.startsWith('games='));
-        if (cookie) {
-            const games = JSON.parse(decodeURIComponent(cookie.split('=')[1]));
-            games.forEach(({ title, url, platform, reviews }) => {
-                const gameItem = createGameElement(title, url, platform);
-                reviews.forEach(review => {
-                    const reviewLi = document.createElement('li');
-                    reviewLi.className = 'review';
-                    reviewLi.textContent = review;
-                    gameItem.querySelector('.reviews').appendChild(reviewLi);
-                });
-                document.getElementById("game-list").appendChild(gameItem);
-            });
-        }
-    }
-
-    function clearGames() {
-        document.getElementById("game-list").innerHTML = '';
-        document.cookie = "games=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    }
-
-    function editGame(button) {
-        const gameItem = button.closest('.game-item');
-        document.getElementById("game-title").value = gameItem.querySelector('div').textContent.split(' - ')[0];
-        document.getElementById("game-url").value = gameItem.querySelector('a').href;
-        document.getElementById("game-platform").value = gameItem.querySelector('div').textContent.split(' ')[1].slice(1, -1);
-        deleteGame(button);
-    }
-
-    function deleteGame(button) {
-        const gameItem = button.closest('.game-item');
-        gameItem.remove();
-        storeGames();
-    }
-
-    function addReview(input) {
-        const gameItem = input.closest('.game-item');
-        const reviewText = input.value.trim();
-        if (reviewText) {
-            const reviewLi = document.createElement('li');
-            reviewLi.className = 'review';
-            reviewLi.textContent = reviewText;
-            gameItem.querySelector('.reviews').appendChild(reviewLi);
-            storeGames();
-            input.value = '';
-        }
-    }
-
-    function toggleReviews(button) {
-        const reviewSection = button.closest('.game-item').querySelector('.review-section');
-        reviewSection.style.display = reviewSection.style.display === 'block' ? 'none' : 'block';
-    }
-</script>
 </body>
 </html>
